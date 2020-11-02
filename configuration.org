@@ -290,7 +290,22 @@
 (ido-mode t)
 (global-hl-line-mode +1)
 
-(global-set-key [f6] 'ibuffer)
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package ibuffer
+    :bind (("C-x C-b" . ibuffer)))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package ibuffer-projectile
+    :ensure t
+    :config
+    (add-hook 'ibuffer-hook
+	      (lambda ()
+		(ibuffer-projectile-set-filter-groups)
+		(unless (eq ibuffer-sorting-mode 'alphabetic)
+		  (ibuffer-do-sort-by-alphabetic)))))
 #+end_src
 
 * Code navigation
