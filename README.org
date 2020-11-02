@@ -1,5 +1,8 @@
 #+TITLE: Le configuration
 #+Author: Raiszo
+
+* Fonts
+  Download ~FiraCode~ & ~FiraCodeiScript~ for ligatures
 * wsl
 ** ligature.el
    Clone ligature.el
