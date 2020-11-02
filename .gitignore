@@ -1,3 +1,5 @@
+.cache/
+.lsp-session-v1
 elpa/
 configuration.el
 ligature.el/
