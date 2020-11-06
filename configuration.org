@@ -551,7 +551,8 @@
       (setq lsp-enable-indentation nil)
       (setq lsp-signature-auto-activate nil)
       :hook ((typescript-mode . lsp)
-	     (dockerfile-mode . lsp)))
+	     (dockerfile-mode . lsp)
+	     (sh-mode . lsp)))
 
     (use-package lsp-ui
       :ensure t
