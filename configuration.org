@@ -80,11 +80,14 @@
 #+end_src
 
 ** Font
-#+begin_src emacs-lisp
-  (set-face-attribute 'default nil :family "Fira Code" :height 115)
-  (custom-set-faces
-   '(font-lock-function-name-face ((t (:inherit default :slant italic :font "FiraCodeiScript")))))
-#+end_src
+   Having mixed fonts in a single buffer causes the function ~text-scale-adjust~ to behave strangely, only adjusting the default face
+   According to [[https://protesilaos.com/codelog/2020-09-05-emacs-note-mixed-font-heights/][this post]] by Protesilaos, we should not specify a specific size for each face (:inherit I'm looking at you).
+   Specifying a ~:height~ relative to the default fixes it.
+   #+begin_src emacs-lisp
+     (set-face-attribute 'default nil :family "Fira Code" :height 135)
+     (custom-set-faces
+      '(font-lock-function-name-face ((t (:inherit default :slant italic :font "Fira Code iScript" :height 1.0)))))
+   #+end_src
 
 ** Ligatures settings
 #+begin_src emacs-lisp
@@ -649,10 +652,14 @@
 #+end_src
 
 ** json
-#+begin_src emacs-lisp
-(use-package json-mode
-  :ensure t)
-#+end_src
+   #+begin_src emacs-lisp
+     (use-package json-mode
+       :ensure t
+       :config
+       (add-hook 'json-mode-hook
+		 (lambda ()
+		   (setq indent-tabs-mode nil))))
+   #+end_src
 
 ** markdown
 #+begin_src emacs-lisp
