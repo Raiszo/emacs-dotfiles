@@ -749,16 +749,16 @@ separate buffer."
 * Org-mode
 
 ** General config
-#+begin_src emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((lisp . t)
-     (C . t)
-     (emacs-lisp . t)
-     (latex . t)))
-  (setq org-confirm-babel-evaluate nil)
-  (setq org-src-window-setup 'other-window)
-#+end_src
+   #+begin_src emacs-lisp
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((lisp . t)
+	(C . t)
+	(emacs-lisp . t)
+	(latex . t)))
+     (setq org-confirm-babel-evaluate nil)
+     (setq org-src-window-setup 'other-window)
+   #+end_src
 
 ** code blocks appereance
 #+begin_src emacs-lisp
