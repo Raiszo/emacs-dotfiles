@@ -613,6 +613,17 @@
 
 * Languages
 
+** Env files
+   #+begin_src emacs-lisp
+     (use-package dotenv-mode
+       :mode ("\\.env\\'")
+       :ensure t)
+   #+end_src
+** git files
+   #+begin_src emacs-lisp
+     (use-package gitignore-mode
+       :ensure t)
+   #+end_src
 ** Javascript
 #+begin_src emacs-lisp
   (use-package js2-mode
