@@ -172,6 +172,18 @@
   (highlight-indent-guides-mode 1))
 #+end_src
 
+** nyan
+#+begin_src emacs-lisp
+  (use-package nyan-mode
+    :ensure t
+    :config
+    (nyan-mode 1)
+    (nyan-start-animation)
+    (nyan-toggle-wavy-trail)
+    :hook
+    (doom-modeline-mode . nyan-mode))
+#+end_src
+
 ** doom-modeline
    not used coz a weid bug with helm that takes the cpu to 100% when opening a helm buffer, sadge
 #+begin_src emacs-lisp
@@ -187,18 +199,6 @@
     (doom-modeline-mode 1)
     :config
     (set-cursor-color "cyan"))
-#+end_src
-
-** nyan
-#+begin_src emacs-lisp
-  (use-package nyan-mode
-    :ensure t
-    :config
-    (nyan-mode 1)
-    (nyan-start-animation)
-    (nyan-toggle-wavy-trail)
-    :hook
-    (doom-modeline-mode . nyan-mode))
 #+end_src
 
 ** telephone-line *deprecated*
