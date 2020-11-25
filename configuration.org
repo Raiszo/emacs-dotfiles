@@ -313,6 +313,14 @@
 
 * Code navigation
 
+** Ace jump
+   #+begin_src emacs-lisp
+     (use-package avy
+       :ensure t
+       :bind (("C-'" . 'avy-goto-char)))
+   #+end_src
+
+** Other stuff
 #+begin_src emacs-lisp
 (use-package undo-tree
   :ensure t
@@ -820,3 +828,21 @@ separate buffer."
       (emojify-set-emoji-data))
     (emojify-mode-line-mode 1))
 #+end_src
+
+* Tools
+
+** Google translate
+   #+begin_src emacs-lisp
+     (use-package google-translate
+       :ensure t
+       ;; :bind
+       ;; ("M-o t" . google-translate-at-point)
+       ;; ("M-o T" . google-translate-at-point-reverse)
+       :custom
+       (google-translate-default-source-language "en")
+       (google-translate-default-target-language "es"))
+
+     (use-package google-translate-default-ui
+       :ensure f
+       :after google-translate)
+   #+end_src
