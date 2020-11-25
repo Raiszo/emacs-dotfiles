@@ -184,6 +184,14 @@
     (doom-modeline-mode . nyan-mode))
 #+end_src
 
+** bongo-cat
+   #+begin_src emacs-lisp
+     (use-package bongocat
+       :load-path "~/.emacs.d/bongocat-mode")
+       ;; :config
+       ;; (bongocat-mode))
+   #+end_src
+
 ** doom-modeline
    not used coz a weid bug with helm that takes the cpu to 100% when opening a helm buffer, sadge
 #+begin_src emacs-lisp
