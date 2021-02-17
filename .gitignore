@@ -1,3 +1,9 @@
+# emacs directories with personal data
+url/
+
+# emacs files generated from usage
+ido.last
+network-security.data
 .mc-lists.el
 recentf
 transient/
