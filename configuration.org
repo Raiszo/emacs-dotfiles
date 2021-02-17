@@ -325,7 +325,7 @@
    #+begin_src emacs-lisp
      (use-package avy
        :ensure t
-       :bind (("C-'" . 'avy-goto-char)))
+       :bind (("C-'" . 'avy-goto-char-2)))
    #+end_src
 
 ** Other stuff
