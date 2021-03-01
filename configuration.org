@@ -854,3 +854,9 @@ separate buffer."
        :ensure f
        :after google-translate)
    #+end_src
+
+** Net utilities
+
+   #+begin_src emacs-lisp
+     (setq ping-program-options '("-c" "4"))
+   #+end_src
