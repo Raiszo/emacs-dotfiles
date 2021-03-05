@@ -860,3 +860,28 @@ separate buffer."
    #+begin_src emacs-lisp
      (setq ping-program-options '("-c" "4"))
    #+end_src
+
+* Advanced configuration
+
+** TLS
+   Knowing that self signed certificates will be used, we need to add them to
+   gnutls-trustfiles to not get weird errors when using e.g. restclient
+   #+begin_src emacs-lisp
+     (require 'gnutls)
+
+     ;; Check if system is Darwin/macOS
+     (defun raiszo/my-system-type-is-darwin ()
+       "Return true if system is darwin-based (Mac OS X)"
+       (string-equal system-type "darwin")
+       )
+
+     ;; tip from https://blog.vifortech.com/posts/emacs-tls-fix/
+     (when (raiszo/my-system-type-is-darwin)
+       (add-to-list 'gnutls-trustfiles "/Users/raiszo/Library/Application Support/mkcert/rootCA-key.pem")
+       )
+
+     (setq gnutls-verify-error t)
+
+     ;; suggestion from: https://github.com/pashky/restclient.el/issues/212
+     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+   #+end_src
