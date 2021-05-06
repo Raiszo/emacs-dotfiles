@@ -166,7 +166,7 @@
 #+begin_src emacs-lisp
 (use-package highlight-indent-guides
   :ensure t
-  :hook ((prog-mode yaml-mode) . highlight-indent-guides-mode)
+  :hook ((prog-mode yaml-mode nxml-mode) . highlight-indent-guides-mode)
   :config
   (setq highlight-indent-guides-method 'character)
   (highlight-indent-guides-mode 1))
@@ -559,72 +559,70 @@
 * LSP
 
 #+begin_src emacs-lisp
-    ;; LSP mode config
-    (use-package flycheck
-      :ensure t)
+  ;; LSP mode config
+  (use-package flycheck
+    :ensure t)
 
-    (use-package lsp-mode
-      :ensure t
-      :commands lsp
-      :config
-      (setq lsp-enable-indentation nil)
-      (setq lsp-signature-auto-activate nil)
-      :hook ((typescript-mode . lsp)
-	     (dockerfile-mode . lsp)
-	     (sh-mode . lsp)))
+  (use-package lsp-mode
+    :ensure t
+    :commands lsp
+    :config
+    (setq lsp-enable-indentation nil)
+    (setq lsp-enable-snippet t)
+    (setq lsp-signature-auto-activate nil)
+    :hook ((typescript-mode . lsp)
+	   (dockerfile-mode . lsp)
+	   (sh-mode . lsp)))
 
-    (use-package lsp-ui
-      :ensure t
-      :commands lsp-ui-mode
-      :custom
-      ;; lsp-ui-doc
-      (lsp-ui-doc-enable nil)
-      (lsp-ui-doc-delay 2)
-      (lsp-ui-doc-header t)
-      (lsp-ui-doc-include-signature nil)
-      (lsp-ui-doc-position 'at-point) ;; top, bottom, or at-point
-      (lsp-ui-doc-max-width 120)
-      (lsp-ui-doc-max-height 30)
-      (lsp-ui-doc-use-childframe t)
-      (lsp-ui-doc-use-webkit t)
-      ;; lsp-ui-imenu
-      (lsp-ui-imenu-enable nil)
-      (lsp-ui-imenu-kind-position 'top)
-      :hook
-      (lsp-mode . lsp-ui-mode)
-      :config
-      (setq lsp-ui-sideline-ignore-duplicate t)
-      (setq lsp-ui-sideline-enable nil))
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode
+    :custom
+    ;; lsp-ui-doc
+    (lsp-ui-doc-enable nil)
+    (lsp-ui-doc-delay 2)
+    (lsp-ui-doc-header t)
+    (lsp-ui-doc-include-signature nil)
+    (lsp-ui-doc-position 'at-point) ;; top, bottom, or at-point
+    (lsp-ui-doc-max-width 120)
+    (lsp-ui-doc-max-height 30)
+    (lsp-ui-doc-use-childframe t)
+    (lsp-ui-doc-use-webkit t)
+    ;; lsp-ui-imenu
+    (lsp-ui-imenu-enable nil)
+    (lsp-ui-imenu-kind-position 'top)
+    :hook
+    (lsp-mode . lsp-ui-mode)
+    :config
+    (setq lsp-ui-sideline-ignore-duplicate t)
+    (setq lsp-ui-sideline-enable nil))
 
-    (use-package company
-      :ensure t
-      :defer t
-      :init (global-company-mode)
-      :config
-      (progn
-	(setq company-tooltip-align-annotations t
-	      ;; Easy navigation to candidates with M-<n>
-	      company-show-numbers t)
-	(setq company-dabbrev-downcase nil))
-      :custom
-      (company-idle-delay 0)
-      (company-echo-delay 0)
-      (company-minimum-prefix-length 1)
-      :diminish company-mode)
-    (use-package company-quickhelp          ; Documentation popups for Company
-      :ensure t
-      :defer t
-      :hook (global-company-mode . company-quickhelp-mode))
-    (use-package company-lsp
-      :ensure t
-      :commands company-lsp)
-    (use-package company-box
-      :ensure t
-      :hook (company-mode . company-box-mode))
-    (use-package company-posframe
-      :diminish
-      :ensure t
-      :hook (company-mode . company-posframe-mode))
+  (use-package company
+    :ensure t
+    :defer t
+    :init (global-company-mode)
+    :config
+    (progn
+      (setq company-tooltip-align-annotations t
+	    ;; Easy navigation to candidates with M-<n>
+	    company-show-numbers t)
+      (setq company-dabbrev-downcase nil))
+    :custom
+    (company-idle-delay 0)
+    (company-echo-delay 0)
+    (company-minimum-prefix-length 1)
+    :diminish company-mode)
+  (use-package company-quickhelp          ; Documentation popups for Company
+    :ensure t
+    :defer t
+    :hook (global-company-mode . company-quickhelp-mode))
+  (use-package company-box
+    :ensure t
+    :hook (company-mode . company-box-mode))
+  (use-package company-posframe
+    :diminish
+    :ensure t
+    :hook (company-mode . company-posframe-mode))
 #+end_src
 
 * Languages
@@ -751,6 +749,7 @@ separate buffer."
   :bind ("C-c d" . docker))
 
 (use-package docker-compose-mode
+  :mode ("docker-compose.yaml\\'")
   :ensure t)
 #+end_src
 
