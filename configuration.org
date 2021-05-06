@@ -796,6 +796,7 @@ separate buffer."
 ** code blocks appereance
 #+begin_src emacs-lisp
   (require 'org)
+  (setq org-image-actual-width nil)
   (add-to-list 'org-src-lang-modes '("js" . js2))
   ;; (set-face-attribute 'org-meta-line nil :background "black" :foreground "pink")
   ;; (set-face-attribute 'org-block-begin-line nil :background "black" :foreground "green")
