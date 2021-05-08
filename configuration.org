@@ -1,8 +1,9 @@
 #+TITLE: Le configuration
 #+Author: Raiszo
+#+STARTUP: indent
 
 * Declare repositories
-  Small trick that was needed long ago for repositories on wsl to work correctly
+Small trick that was needed long ago for repositories on wsl to work correctly
 #+begin_src emacs-lisp
 (setq package-check-signature nil)
 #+end_src
@@ -26,7 +27,7 @@
 * Platform specific
 
 ** OS
-   Correctly load $PATH and $MANPATH on OSX (GUI)., ty Darwin OS >:T
+Correctly load $PATH and $MANPATH on OSX (GUI)., ty Darwin OS >:T
 
 #+begin_src emacs-lisp
    ;; macos only stuff >:v, pice of crap
@@ -56,7 +57,7 @@
 #+end_src
 
 ** Disable default emacs appereance
-   More space in GUI mode :3
+More space in GUI mode :3
 #+begin_src emacs-lisp
   ;; more space in GUI mode :D
   (setq inhibit-startup-screen t)
@@ -80,14 +81,14 @@
 #+end_src
 
 ** Font
-   Having mixed fonts in a single buffer causes the function ~text-scale-adjust~ to behave strangely, only adjusting the default face
-   According to [[https://protesilaos.com/codelog/2020-09-05-emacs-note-mixed-font-heights/][this post]] by Protesilaos, we should not specify a specific size for each face (:inherit I'm looking at you).
-   Specifying a ~:height~ relative to the default fixes it.
-   #+begin_src emacs-lisp
-     (set-face-attribute 'default nil :family "Fira Code" :height 135)
-     (custom-set-faces
-      '(font-lock-function-name-face ((t (:inherit default :slant italic :font "Fira Code iScript" :height 1.0)))))
-   #+end_src
+Having mixed fonts in a single buffer causes the function ~text-scale-adjust~ to behave strangely, only adjusting the default face
+According to [[https://protesilaos.com/codelog/2020-09-05-emacs-note-mixed-font-heights/][this post]] by Protesilaos, we should not specify a specific size for each face (:inherit I'm looking at you).
+Specifying a ~:height~ relative to the default fixes it.
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil :family "Fira Code" :height 110)
+  ;; (custom-set-faces
+  ;;  '(font-lock-function-name-face ((t (:inherit default :slant italic :font "Fira Code iScript" :height 1.0)))))
+#+end_src
 
 ** Ligatures settings
 #+begin_src emacs-lisp
@@ -185,15 +186,15 @@
 #+end_src
 
 ** bongo-cat
-   #+begin_src emacs-lisp
-     (use-package bongocat
-       :load-path "~/.emacs.d/bongocat-mode")
-       ;; :config
-       ;; (bongocat-mode))
-   #+end_src
+#+begin_src emacs-lisp
+  (use-package bongocat
+    :load-path "~/.emacs.d/bongocat-mode")
+    ;; :config
+    ;; (bongocat-mode))
+#+end_src
 
 ** doom-modeline
-   not used coz a weid bug with helm that takes the cpu to 100% when opening a helm buffer, sadge
+not used coz a weid bug with helm that takes the cpu to 100% when opening a helm buffer, sadge
 #+begin_src emacs-lisp
   (use-package doom-modeline
     :ensure t
@@ -239,7 +240,7 @@
 #+end_src
 
 ** Dashboard
-   Kul dashboard with a custom image: eva <3
+Kul dashboard with a custom image: eva <3
 #+begin_src emacs-lisp
 (use-package dashboard
   :ensure t
@@ -292,7 +293,7 @@
 #+end_src
 
 * General stuff
-  emacs native stuff
+emacs native stuff
 
 #+begin_src emacs-lisp
 (electric-indent-mode 1)
@@ -322,11 +323,11 @@
 * Code navigation
 
 ** Ace jump
-   #+begin_src emacs-lisp
-     (use-package avy
-       :ensure t
-       :bind (("C-'" . 'avy-goto-char-2)))
-   #+end_src
+#+begin_src emacs-lisp
+  (use-package avy
+    :ensure t
+    :bind (("C-'" . 'avy-goto-char-2)))
+#+end_src
 
 ** Other stuff
 #+begin_src emacs-lisp
@@ -430,7 +431,7 @@
 #+end_src
 
 ** amx
-   For better history in helm
+For better history in helm
 #+begin_src emacs-lisp
 (use-package amx
   :ensure t
@@ -628,16 +629,16 @@
 * Languages
 
 ** Env files
-   #+begin_src emacs-lisp
-     (use-package dotenv-mode
-       :mode ("\\.env\\'")
-       :ensure t)
-   #+end_src
+#+begin_src emacs-lisp
+  (use-package dotenv-mode
+    :mode ("\\.env\\'")
+    :ensure t)
+#+end_src
 ** git files
-   #+begin_src emacs-lisp
-     (use-package gitignore-mode
-       :ensure t)
-   #+end_src
+#+begin_src emacs-lisp
+  (use-package gitignore-mode
+    :ensure t)
+#+end_src
 ** Javascript
 #+begin_src emacs-lisp
   (use-package js2-mode
@@ -677,14 +678,14 @@
 #+end_src
 
 ** json
-   #+begin_src emacs-lisp
-     (use-package json-mode
-       :ensure t
-       :config
-       (add-hook 'json-mode-hook
-		 (lambda ()
-		   (setq indent-tabs-mode nil))))
-   #+end_src
+#+begin_src emacs-lisp
+  (use-package json-mode
+    :ensure t
+    :config
+    (add-hook 'json-mode-hook
+              (lambda ()
+                (setq indent-tabs-mode nil))))
+#+end_src
 
 ** markdown
 #+begin_src emacs-lisp
@@ -782,16 +783,16 @@ separate buffer."
 * Org-mode
 
 ** General config
-   #+begin_src emacs-lisp
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((lisp . t)
-	(C . t)
-	(emacs-lisp . t)
-	(latex . t)))
-     (setq org-confirm-babel-evaluate nil)
-     (setq org-src-window-setup 'other-window)
-   #+end_src
+#+begin_src emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((lisp . t)
+     (C . t)
+     (emacs-lisp . t)
+     (latex . t)))
+  (setq org-confirm-babel-evaluate nil)
+  (setq org-src-window-setup 'other-window)
+#+end_src
 
 ** code blocks appereance
 #+begin_src emacs-lisp
@@ -864,24 +865,24 @@ separate buffer."
 * Advanced configuration
 
 ** TLS
-   Knowing that self signed certificates will be used, we need to add them to
-   gnutls-trustfiles to not get weird errors when using e.g. restclient
-   #+begin_src emacs-lisp
-     (require 'gnutls)
+Knowing that self signed certificates will be used, we need to add them to
+gnutls-trustfiles to not get weird errors when using e.g. restclient
+#+begin_src emacs-lisp
+  (require 'gnutls)
 
-     ;; Check if system is Darwin/macOS
-     (defun raiszo/my-system-type-is-darwin ()
-       "Return true if system is darwin-based (Mac OS X)"
-       (string-equal system-type "darwin")
-       )
+  ;; Check if system is Darwin/macOS
+  (defun raiszo/my-system-type-is-darwin ()
+    "Return true if system is darwin-based (Mac OS X)"
+    (string-equal system-type "darwin")
+    )
 
-     ;; tip from https://blog.vifortech.com/posts/emacs-tls-fix/
-     (when (raiszo/my-system-type-is-darwin)
-       (add-to-list 'gnutls-trustfiles "/Users/raiszo/Library/Application Support/mkcert/rootCA-key.pem")
-       )
+  ;; tip from https://blog.vifortech.com/posts/emacs-tls-fix/
+  (when (raiszo/my-system-type-is-darwin)
+    (add-to-list 'gnutls-trustfiles "/Users/raiszo/Library/Application Support/mkcert/rootCA-key.pem")
+    )
 
-     (setq gnutls-verify-error t)
+  (setq gnutls-verify-error t)
 
-     ;; suggestion from: https://github.com/pashky/restclient.el/issues/212
-     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-   #+end_src
+  ;; suggestion from: https://github.com/pashky/restclient.el/issues/212
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+#+end_src
