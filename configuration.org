@@ -811,6 +811,12 @@ separate buffer."
   :hook (org-mode . (lambda () (org-bullets-mode 1))))
 #+end_src
 
+** Exports
+*** org-reveal for presentations
+#+begin_src emacs-lisp
+(use-package ox-reveal
+  :ensure t)
+#+end_src
 * Misc
 
 ** Icons :3
@@ -838,6 +844,35 @@ separate buffer."
     (emojify-mode-line-mode 1))
 #+end_src
 
+** COMMENT Presentation
+Would want the fullscreen and property hiding features of epresent with the extensibility of org-tree-slide.
+#+begin_src emacs-lisp
+;; check https://github.com/takaxp/org-tree-slide/issues/13#issuecomment-251139782
+
+(use-package hide-lines
+  :ensure t)
+
+(defun raiszo/presentation-start ()
+  ;; (hide-lines-show-all)
+  (setq text-scale-mode-amount 5)
+  (org-display-inline-images)
+  (beacon-mode 0)
+  (text-scale-mode 1))
+
+(defun raiszo/presentation-end ()
+  ;; (hide-lines-matching "#\\+BEGIN_SRC")
+  ;; (hide-lines-matching "#\\+END_SRC")
+  (beacon-mode 1)
+  (text-scale-mode 0))
+
+(use-package org-tree-slide
+  :ensure t
+  :bind (("<f12>" . org-tree-slide-mode))
+  :custom (org-tree-slide-modeline-display nil)
+  :hook ((org-tree-slide-play . raiszo/presentation-start)
+	 (org-tree-slide-stop . raiszo/presentation-end)))
+
+#+end_src
 * Tools
 
 ** Google translate
