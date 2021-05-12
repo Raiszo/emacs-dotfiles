@@ -796,12 +796,13 @@ separate buffer."
 
 ** code blocks appereance
 #+begin_src emacs-lisp
-  (require 'org)
-  (setq org-image-actual-width nil)
-  (add-to-list 'org-src-lang-modes '("js" . js2))
-  ;; (set-face-attribute 'org-meta-line nil :background "black" :foreground "pink")
-  ;; (set-face-attribute 'org-block-begin-line nil :background "black" :foreground "green")
-  ;; (set-face-attribute 'org-block-end-line nil :background "black" :foreground "green")
+(require 'org)
+(setq org-image-actual-width nil)
+(setq org-edit-src-content-indentation 0)
+(add-to-list 'org-src-lang-modes '("js" . js2))
+;; (set-face-attribute 'org-meta-line nil :background "black" :foreground "pink")
+;; (set-face-attribute 'org-block-begin-line nil :background "black" :foreground "green")
+;; (set-face-attribute 'org-block-end-line nil :background "black" :foreground "green")
 #+end_src
 
 ** Bullets
@@ -913,7 +914,7 @@ gnutls-trustfiles to not get weird errors when using e.g. restclient
 
   ;; tip from https://blog.vifortech.com/posts/emacs-tls-fix/
   (when (raiszo/my-system-type-is-darwin)
-    (add-to-list 'gnutls-trustfiles "/Users/raiszo/Library/Application Support/mkcert/rootCA-key.pem")
+    (add-to-list 'gnutls-trustfiles "/Users/raiszo/Library/Application Support/mkcert/rootCA.pem")
     )
 
   (setq gnutls-verify-error t)
