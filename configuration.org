@@ -10,39 +10,40 @@ Small trick that was needed long ago for repositories on wsl to work correctly
 
 
 #+begin_src emacs-lisp
-  (require 'package)
-  ;;Add melpa repository
-  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			   ("melpa-stable" . "http://stable.melpa.org/packages/")
-			   ("melpa" . "http://melpa.org/packages/")) )
+(require 'package)
+;;Add melpa repository
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("melpa-stable" . "http://stable.melpa.org/packages/")
+			 ("melpa" . "http://melpa.org/packages/")))
 
-  (setq package-list '(use-package))
+(setq package-list '(use-package))
 
-  (dolist (package package-list)
-    (unless (package-installed-p package)
-      (package-refresh-contents)
-      (package-install package)))
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-refresh-contents)
+    (package-install package)))
 #+end_src
 
 * Platform specific
-
 ** OS
 Correctly load $PATH and $MANPATH on OSX (GUI)., ty Darwin OS >:T
 
 #+begin_src emacs-lisp
-   ;; macos only stuff >:v, pice of crap
-   (use-package exec-path-from-shell
-     :ensure t
-     :if (memq window-system '(mac ns))
-     :config
-     (progn
-       (setq exec-path-from-shell-arguments '("-l"))
-       (setq mac-right-option-modifier 'none) ;this is another shit for mac
-       (exec-path-from-shell-initialize)))
+;; macos only stuff >:v, pice of crap
+(use-package exec-path-from-shell
+  :ensure t
+  :if (memq window-system '(mac ns))
+  :config
+  (progn
+    (setq exec-path-from-shell-arguments '("-l"))
+    (setq mac-right-option-modifier 'none) ;this is another shit for mac
+    ;; (setq exec-path
+    ;; 	  (append exec-path
+    ;; 		  (list (concat user-home-directory ".nvm/versions/node/12.22.1/bin"))))
+    (exec-path-from-shell-initialize)))
 #+end_src
 
 * Appereance
-
 ** Transparent background
 #+begin_src emacs-lisp
   (defun on-after-init ()
@@ -339,8 +340,8 @@ emacs native stuff
   (use-package multiple-cursors
   :ensure t
   :bind (("C-c C-v" . 'mc/edit-lines)
-	 ("C-<" . 'mc/mark-next-like-this)
-	 ("C->" . mc/mark-previous-like-this)
+	 ("C->" . 'mc/mark-next-like-this)
+	 ("C-<" . mc/mark-previous-like-this)
 	 ("C-c C-q" . mc/mark-all-like-this)))
 
 (use-package ace-window
@@ -361,7 +362,6 @@ emacs native stuff
 #+end_src
 
 * Programming utilities
-
 ** Snippets
 #+begin_src emacs-lisp
   (use-package yasnippet
@@ -511,7 +511,6 @@ For better history in helm
 #+end_src
 
 * Projects
-
 ** projectile
 *** config
 #+begin_src emacs-lisp
@@ -558,7 +557,6 @@ For better history in helm
 #+end_src
 
 * LSP
-
 #+begin_src emacs-lisp
   ;; LSP mode config
   (use-package flycheck
@@ -627,7 +625,6 @@ For better history in helm
 #+end_src
 
 * Languages
-
 ** Env files
 #+begin_src emacs-lisp
   (use-package dotenv-mode
@@ -658,12 +655,24 @@ For better history in helm
 
 ** Python
 #+begin_src emacs-lisp
-(use-package lsp-python-ms
+;; (use-package lsp-python-ms
+;;   :ensure t
+;;   :init
+;;   (setq lsp-python-ms-auto-install-server t)
+;;   ;; (setq lsp-python-ms-python-executable "/usr/local/opt/python@3.8/bin/python3")
+;;   :hook (python-mode . (lambda ()
+;;   			 (require 'lsp-python-ms)
+;;   			 (lsp))))
+
+
+(use-package lsp-pyright
   :ensure t
-  :init (setq lsp-python-ms-auto-install-server t)
   :hook (python-mode . (lambda ()
-  			 (require 'lsp-python-ms)
-  			 (lsp))))
+                         (require 'lsp-pyright)
+                         (lsp)))  ; or lsp-deferred
+  :init (when (executable-find "python3")
+          (setq lsp-pyright-python-executable-cmd "python3"))
+  )
 #+end_src
 
 ** yaml
@@ -780,6 +789,13 @@ separate buffer."
   :ensure t)
 #+end_src
 
+** node
+#+begin_src emacs-lisp
+(use-package nvm
+  :ensure t
+  :config
+  (nvm-use "v12.22.1"))
+#+end_src
 * Org-mode
 
 ** General config
@@ -875,7 +891,6 @@ Would want the fullscreen and property hiding features of epresent with the exte
 
 #+end_src
 * Tools
-
 ** Google translate
    #+begin_src emacs-lisp
      (use-package google-translate
@@ -899,7 +914,6 @@ Would want the fullscreen and property hiding features of epresent with the exte
    #+end_src
 
 * Advanced configuration
-
 ** TLS
 Knowing that self signed certificates will be used, we need to add them to
 gnutls-trustfiles to not get weird errors when using e.g. restclient
