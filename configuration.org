@@ -679,7 +679,7 @@ For better history in helm
 #+begin_src emacs-lisp
 (use-package yaml-mode
   :ensure t
-  :mode ("\\.yaml\\'" "\\.yml\\'")
+  :mode ("\\.yaml\\'" "\\.yml\\'" "\\.config\\'")
   :config
   (setq yaml-indent-offset 4)
   :custom-face
