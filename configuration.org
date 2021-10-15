@@ -838,6 +838,19 @@ separate buffer."
   (org-src-preserve-indentation t))
 #+end_src
 
+** Scientific writing
+To reference from bibtex file:
+#+begin_src emacs-lisp
+(use-package org-ref
+  :ensure t
+  :config
+  (setq doi-utils-download-pdf nil))
+;; Nice helm popup when referencing
+(use-package helm-bibtex
+  :ensure t)
+#+end_src
+If apa6 is needed take a look at [[https://jonathanabennett.github.io/blog/2019/05/29/writing-academic-papers-with-org-mode/][this]] blog.
+* Misc
 ** Icons :3
 #+begin_src emacs-lisp
 (use-package all-the-icons
