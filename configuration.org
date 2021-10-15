@@ -799,16 +799,29 @@ separate buffer."
 * Org-mode
 ** General config
 #+begin_src emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((lisp . t)
-     (C . t)
-     (emacs-lisp . t)
-     (latex . t)))
-  (setq org-confirm-babel-evaluate nil)
-  (setq org-src-window-setup 'other-window)
+;; could add company-emoji to insert unicode characters that would transpile well when exporting
+;; but for some reason company completion list just crashes, so, would search for something like
+;; https://stackoverflow.com/questions/36233605/how-to-customize-org-mode-html-output-to-replace-emojis
+;; :hook (org-mode . (lambda ()
+;; 		      ;; (make-local-variable 'company-backends)))
+;; 		      (delete 'company-semantic (add-to-list (make-local-variable 'company-backends) 'company-emoji))))
+(use-package org
+  :config
+  (setq org-image-actual-width nil)
+  (setq org-edit-src-content-indentation 0)
+  (setq org-src-preserve-indentation t))
 #+end_src
 
+#+begin_src emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((lisp . t)
+   (C . t)
+   (emacs-lisp . t)
+   (latex . t)))
+(setq org-confirm-babel-evaluate nil)
+(setq org-src-window-setup 'other-window)
+#+end_src
 ** Bullets
 #+begin_src emacs-lisp
 (use-package org-bullets
@@ -822,22 +835,6 @@ separate buffer."
 (use-package ox-reveal
   :ensure t)
 #+end_src
-* Misc
-** Org-mode
-#+begin_src emacs-lisp
-;; could add company-emoji to insert unicode characters that would transpile well when exporting
-;; but for some reason company completion list just crashes, so, would search for something like
-;; https://stackoverflow.com/questions/36233605/how-to-customize-org-mode-html-output-to-replace-emojis
-;; :hook (org-mode . (lambda ()
-;; 		      ;; (make-local-variable 'company-backends)))
-;; 		      (delete 'company-semantic (add-to-list (make-local-variable 'company-backends) 'company-emoji))))
-(use-package org
-  :config
-  (setq org-image-actual-width nil)
-  (setq org-edit-src-content-indentation 0)
-  (org-src-preserve-indentation t))
-#+end_src
-
 ** Scientific writing
 To reference from bibtex file:
 #+begin_src emacs-lisp
