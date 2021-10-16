@@ -69,16 +69,16 @@ More space in GUI mode :3
 
 ** Theme
 #+begin_src emacs-lisp
-  (use-package doom-themes
-    :ensure t
-    :init
-    (load-theme 'doom-solarized-light t)
-    (setq doom-themes-enable-bold t)
-    (setq doom-themes-enable-italic t)
-    :config
-    (progn
-      ;; (doom-themes-treemacs-config)
-      (doom-themes-org-config)))
+(use-package doom-themes
+  :ensure t
+  :init
+  (load-theme 'doom-solarized-light t)
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  :config
+  (progn
+    ;; (doom-themes-treemacs-config)
+    (doom-themes-org-config)))
 #+end_src
 
 ** Font
