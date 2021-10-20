@@ -104,7 +104,7 @@ Specifying a ~:height~ relative to the default fixes it.
     (ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
 					 ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
 					 "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
-					 ;; the next one seesm to be the culprit that breaks in python with lsp+doo-modeline
+					 ;; the next one seems to be the culprit that breaks in python with lsp+doom-modeline
 					 ;; "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
 					 "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
 					 "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
@@ -396,38 +396,38 @@ emacs native stuff
 
 ** helm
 #+begin_src emacs-lisp
-  (use-package helm
-    :ensure t
-    :init
-    (add-hook 'helm-mode-hook
-	      (lambda ()
-		(setq completion-styles
-		      (cond ((assq 'helm-flex completion-styles-alist)
-			     '(helm-flex))))))
-    ;; https://github.com/tonsky/FiraCode/issues/158
-    (add-hook 'helm-major-mode-hook
-	      (lambda ()
-		(setq auto-composition-mode nil)))
-    :bind (("M-x" . helm-M-x)
-	   ("C-x b" . helm-buffers-list)
-	   ("C-x C-f" . helm-find-files))
-    :config
-    (bind-keys :map helm-map
-	       ("TAB" . helm-execute-persistent-action))
-    (setq helm-split-window-in-side-p t)
-    (helm-autoresize-mode 1)
-    (setq helm-autoresize-max-height 20)
-    (helm-mode 1))
+(use-package helm
+  :ensure t
+  :init
+  (add-hook 'helm-mode-hook
+	    (lambda ()
+	      (setq completion-styles
+		    (cond ((assq 'helm-flex completion-styles-alist)
+			   '(helm-flex))))))
+  ;; https://github.com/tonsky/FiraCode/issues/158
+  (add-hook 'helm-major-mode-hook
+	    (lambda ()
+	      (setq auto-composition-mode nil)))
+  :bind (("M-x" . helm-M-x)
+	 ("C-x b" . helm-buffers-list)
+	 ("C-x C-f" . helm-find-files))
+  :config
+  ;; (bind-keys :map helm-map
+  ;; 	     ("TAB" . helm-execute-persistent-action))
+  (setq helm-split-window-in-side-p t)
+  (helm-autoresize-mode 1)
+  (setq helm-autoresize-max-height 20)
+  (helm-mode 1))
 
-  ;; (use-package helm-posframe
-  ;;   :ensure t
-  ;;   :config
-  ;;   (setq helm-posframe-poshandler 'posframe-poshandler-frame-center
-  ;; 	helm-posframe-border-width 1
-  ;;         helm-posframe-height 20
-  ;;         helm-posframe-width (round (* (frame-width) 0.49))
-  ;;         helm-posframe-parameters '((internal-border-width . 10)))
-  ;;   (helm-posframe-enable))
+;; (use-package helm-posframe
+;;   :ensure t
+;;   :config
+;;   (setq helm-posframe-poshandler 'posframe-poshandler-frame-center
+;; 	helm-posframe-border-width 1
+;;         helm-posframe-height 20
+;;         helm-posframe-width (round (* (frame-width) 0.49))
+;;         helm-posframe-parameters '((internal-border-width . 10)))
+;;   (helm-posframe-enable))
 #+end_src
 
 ** amx
