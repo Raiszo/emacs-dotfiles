@@ -822,6 +822,21 @@ separate buffer."
 (setq org-confirm-babel-evaluate nil)
 (setq org-src-window-setup 'other-window)
 #+end_src
+*** org-roam
+To have project specific roam notes declare a local variable as suggested [[https://www.orgroam.com/manual.html#How-do-I-have-more-than-one-Org_002droam-directory_003f][here]].
+#+begin_src emacs-lisp
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :config
+  (setq org-roam-capture-templates
+	'(;; bibliography note template
+          ("b" "bibliography reference" plain "%?"
+           :target
+           (file+head "${citekey}.org" "#+title: ${title}\n")
+           :unnarrowed t))))
+#+end_src
 ** Bullets
 #+begin_src emacs-lisp
 (use-package org-bullets
@@ -840,13 +855,26 @@ To reference from bibtex file:
 #+begin_src emacs-lisp
 (use-package org-ref
   :ensure t
-  :config
-  (setq doi-utils-download-pdf nil))
+  :bind ("C-c ]" . org-ref-insert-link))
+
+;; this only works in linux
+(define-prefix-command 'my-menu-key-map)
+(global-set-key (kbd "<menu>") 'my-menu-key-map)
 ;; Nice helm popup when referencing
 (use-package helm-bibtex
-  :ensure t)
+  :ensure t
+  :bind ("<menu> b" . helm-bibtex-with-local-bibliography))
 #+end_src
 If apa6 is needed take a look at [[https://jonathanabennett.github.io/blog/2019/05/29/writing-academic-papers-with-org-mode/][this]] blog.
+*** roam-bibtex
+#+begin_src emacs-lisp
+(use-package org-roam-bibtex
+  :after org-roam
+  :config
+  :hook (org-mode . (lambda () (org-roam-bibtex-mode 1)))
+  :ensure t)
+#+end_src
+
 * Misc
 ** Icons :3
 #+begin_src emacs-lisp
