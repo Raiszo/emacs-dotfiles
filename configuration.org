@@ -822,7 +822,7 @@ separate buffer."
 (setq org-confirm-babel-evaluate nil)
 (setq org-src-window-setup 'other-window)
 #+end_src
-*** org-roam
+*** COMMENT org-roam
 To have project specific roam notes declare a local variable as suggested [[https://www.orgroam.com/manual.html#How-do-I-have-more-than-one-Org_002droam-directory_003f][here]].
 #+begin_src emacs-lisp
 (use-package org-roam
@@ -855,18 +855,29 @@ To reference from bibtex file:
 #+begin_src emacs-lisp
 (use-package org-ref
   :ensure t
+  ;; :bind (("C-c ]" . org-ref-insert-link)
+  ;; 	 ("C-u c ]" . org-ref-)))
   :bind ("C-c ]" . org-ref-insert-link))
+(use-package helm-bibtex
+  :ensure t)
+(use-package org-ref-helm
+  :ensure nil
+  :after org-ref
+  :init
+  (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
+	org-ref-insert-cite-function 'org-ref-cite-insert-helm
+	org-ref-insert-label-function 'org-ref-insert-label-link
+	org-ref-insert-ref-function 'org-ref-insert-ref-link
+	org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
 
 ;; this only works in linux
-(define-prefix-command 'my-menu-key-map)
-(global-set-key (kbd "<menu>") 'my-menu-key-map)
+;; (define-prefix-command 'my-menu-key-map)
+;; (global-set-key (kbd "<menu>") 'my-menu-key-map)
 ;; Nice helm popup when referencing
-(use-package helm-bibtex
-  :ensure t
-  :bind ("<menu> b" . helm-bibtex-with-local-bibliography))
+  ;; :bind ("<menu> b" . helm-bibtex-with-local-bibliography))
 #+end_src
 If apa6 is needed take a look at [[https://jonathanabennett.github.io/blog/2019/05/29/writing-academic-papers-with-org-mode/][this]] blog.
-*** roam-bibtex
+*** COMMENT roam-bibtex
 #+begin_src emacs-lisp
 (use-package org-roam-bibtex
   :after org-roam
