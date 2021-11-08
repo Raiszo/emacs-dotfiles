@@ -886,6 +886,20 @@ If apa6 is needed take a look at [[https://jonathanabennett.github.io/blog/2019/
   :ensure t)
 #+end_src
 
+*** Web of Conferences template
+#+begin_src emacs-lisp
+(add-to-list 'org-latex-classes
+             '("webofc-journal"
+	       "\\documentclass{webofc}
+[NO-DEFAULT-PACKAGES]
+[EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+             )
+#+end_src
+
 * Misc
 ** Icons :3
 #+begin_src emacs-lisp
