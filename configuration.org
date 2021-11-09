@@ -858,13 +858,16 @@ To have project specific roam notes declare a local variable as suggested [[http
 ** Scientific writing
 To reference from bibtex file:
 #+begin_src emacs-lisp
+(use-package helm-bibtex
+  :ensure t)
 (use-package org-ref
   :ensure t
   ;; :bind (("C-c ]" . org-ref-insert-link)
   ;; 	 ("C-u c ]" . org-ref-)))
-  :bind ("C-c ]" . org-ref-insert-link))
-(use-package helm-bibtex
-  :ensure t)
+  :bind ("C-c ]" . org-ref-insert-link)
+  :init
+  (require 'bibtex)
+  (require 'org-ref-helm))
 (use-package org-ref-helm
   :ensure nil
   :after org-ref
