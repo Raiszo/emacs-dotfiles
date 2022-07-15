@@ -335,7 +335,9 @@ emacs native stuff
 (use-package undo-tree
   :ensure t
   :config
-  (global-undo-tree-mode 1))
+  (global-undo-tree-mode 1)
+  :custom
+  (undo-tree-auto-save-history nil))
 
   (use-package multiple-cursors
   :ensure t
@@ -379,11 +381,19 @@ emacs native stuff
   :bind ("C-=" . 'er/expand-region))
 #+end_src
 
-** magit
+** git
+*** magit
 #+begin_src emacs-lisp
 (use-package magit
   :ensure t
   :bind ("<f5>" . magit-status))
+#+end_src
+*** browse at remote
+Open a file under git vc in the browser
+#+begin_src emacs-lisp
+(use-package browse-at-remote
+  :ensure t
+  :bind ("C-c g g" . browse-at-remote))
 #+end_src
 
 ** search
