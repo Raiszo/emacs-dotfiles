@@ -195,20 +195,19 @@ Specifying a ~:height~ relative to the default fixes it.
 #+end_src
 
 ** doom-modeline
-not used coz a weid bug with helm that takes the cpu to 100% when opening a helm buffer, sadge
 #+begin_src emacs-lisp
-  (use-package doom-modeline
-    :ensure t
-    :custom
-    (doom-modeline-buffer-file-name-style 'truncate-with-project)
-    (doom-modeline-icon t)
-    (doom-modeline-major-mode-icon t)
-    (doom-modeline-minor-modes nil);
-    (inhibit-compacting-font-caches t)
-    :init 
-    (doom-modeline-mode 1)
-    :config
-    (set-cursor-color "cyan"))
+(use-package doom-modeline
+  :ensure t
+  :custom
+  (doom-modeline-buffer-file-name-style 'truncate-with-project)
+  (doom-modeline-icon t)
+  (doom-modeline-major-mode-icon t)
+  (doom-modeline-minor-modes nil);
+  (inhibit-compacting-font-caches t)
+  :init
+  (doom-modeline-mode 1)
+  :config
+  (set-cursor-color "cyan"))
 #+end_src
 
 ** telephone-line *deprecated*
