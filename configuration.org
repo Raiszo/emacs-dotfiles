@@ -575,21 +575,40 @@ For better history in helm
   (use-package lsp-mode
     :ensure t
     :commands lsp
+    :custom
+    (lsp-idle-delay 0.500)
     :config
     (setq lsp-enable-indentation nil)
     (setq lsp-enable-snippet t)
     (setq lsp-signature-auto-activate nil)
-    :hook ((typescript-mode . lsp)
-	   (dockerfile-mode . lsp)
-	   (sh-mode . lsp)))
+    (setq lsp-enable-on-type-formatting nil)
+    (setq lsp-clients-typescript-max-ts-server-memory 3072)
+    (setq read-process-output-max (* 1024 1048 4)) ;; 4mb
+    (dolist (dir '(
+                   "[/\\\\]\\.venv$"
+                   "[/\\\\]\\venv$"
+                   "[/\\\\]\\.mypy_cache$"
+                   "[/\\\\]__pycache__$"
+                   ))
+      (push dir lsp-file-watch-ignored-directories))
+    :hook ((typescript-mode
+            js2-mode
+            dockerfile-mode
+            sh-mode
+            ) . lsp-deferred))
+
+  ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
+  (setq gc-cons-threshold (* 1024 1024 100))
+
 
   (use-package lsp-ui
     :ensure t
     :commands lsp-ui-mode
     :custom
     ;; lsp-ui-doc
-    (lsp-ui-doc-enable nil)
-    (lsp-ui-doc-delay 2)
+    (lsp-ui-doc-enable t)
+    (lsp-ui-doc-show-with-mouse t)
+    (lsp-ui-doc-delay 0.8)
     (lsp-ui-doc-header t)
     (lsp-ui-doc-include-signature nil)
     (lsp-ui-doc-position 'at-point) ;; top, bottom, or at-point
@@ -613,8 +632,8 @@ For better history in helm
     :config
     (progn
       (setq company-tooltip-align-annotations t
-	    ;; Easy navigation to candidates with M-<n>
-	    company-show-numbers t)
+            ;; Easy navigation to candidates with M-<n>
+            company-show-numbers t)
       (setq company-dabbrev-downcase nil))
     :custom
     (company-idle-delay 0)
