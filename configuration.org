@@ -37,6 +37,7 @@ Correctly load $PATH and $MANPATH on OSX (GUI)., ty Darwin OS >:T
   (progn
     (setq exec-path-from-shell-arguments '("-l"))
     (setq mac-right-option-modifier 'none) ;this is another shit for mac
+    (exec-path-from-shell-copy-env "LSP_USE_PLISTS")
     ;; (setq exec-path
     ;; 	  (append exec-path
     ;; 		  (list (concat user-home-directory ".nvm/versions/node/12.22.1/bin"))))
