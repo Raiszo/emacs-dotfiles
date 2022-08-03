@@ -8,6 +8,9 @@ network-security.data
 recentf
 transient/
 .cache/
+eln-cache/
+eshell
+jsdoc.el
 .lsp-session-v1
 elpa/
 configuration.el
