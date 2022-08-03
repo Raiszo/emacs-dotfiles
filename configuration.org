@@ -662,24 +662,24 @@ For better history in helm
 #+end_src
 ** git files
 #+begin_src emacs-lisp
-  (use-package gitignore-mode
-    :ensure t)
+(use-package git-modes
+  :ensure t)
 #+end_src
 ** Javascript
 #+begin_src emacs-lisp
-  (use-package js2-mode
-    :ensure t
-    :mode "\\.js\\'"
-    :hook (js2-mode . js2-imenu-extras-mode)
-    :custom
-    (js2-strict-missing-semi-warning nil)
-    (js2-include-node-externs t)
-    (js-switch-indent-offset 4)
-    :config
-    (setq-default js2-basic-offset 4))
+(use-package js2-mode
+  :ensure t
+  :mode "\\.js\\'"
+  :hook (js2-mode . js2-imenu-extras-mode)
+  :custom
+  (js2-strict-missing-semi-warning nil)
+  (js2-include-node-externs t)
+  (js-switch-indent-offset 4)
+  :config
+  (setq-default js2-basic-offset 4))
 
-  (use-package nodejs-repl
-    :ensure t)
+(use-package nodejs-repl
+  :ensure t)
 #+end_src
 
 ** Python
@@ -699,9 +699,10 @@ For better history in helm
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp)))  ; or lsp-deferred
-  :init (when (executable-find "python3")
-          (setq lsp-pyright-python-executable-cmd "python3"))
-  )
+  :init
+  (when (executable-find "python3")
+    (setq lsp-pyright-python-executable-cmd "python3"))
+  (setq lsp-pyright-multi-root nil))
 #+end_src
 
 ** yaml
