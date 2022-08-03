@@ -440,7 +440,7 @@ Open a file under git vc in the browser
 ;;   (helm-posframe-enable))
 #+end_src
 
-** amx
+** COMMENT amx
 For better history in helm
 #+begin_src emacs-lisp
 (use-package amx
