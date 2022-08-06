@@ -556,7 +556,9 @@ For better history in helm
 #+begin_src emacs-lisp
   (use-package perspective
     :ensure t
-    :config
+    :custom
+    (persp-mode-prefix-key (kbd "C-x x"))
+    :init
     (persp-mode))
 
   (use-package persp-projectile
