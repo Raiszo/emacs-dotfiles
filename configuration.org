@@ -429,6 +429,9 @@ Open a file under git vc in the browser
   (setq helm-autoresize-max-height 20)
   (helm-mode 1))
 
+(use-package helm-ag
+  :ensure t)
+
 ;; (use-package helm-posframe
 ;;   :ensure t
 ;;   :config
