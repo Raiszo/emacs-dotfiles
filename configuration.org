@@ -571,7 +571,8 @@ For better history in helm
     (define-key projectile-mode-map (kbd "C-c p p") 'projectile-persp-switch-project))
 #+end_src
 
-* LSP
+* IDE features
+** LSP
 #+begin_src emacs-lisp
   ;; LSP mode config
   (use-package flycheck
@@ -660,7 +661,21 @@ For better history in helm
     :ensure t
     :hook (company-mode . company-posframe-mode))
 #+end_src
+** Tree sitter
+#+begin_src emacs-lisp
+(use-package tree-sitter
+  :ensure t
+  :config
+  ;; activate tree-sitter on any buffer containing code for which it has a parser available
+  (global-tree-sitter-mode))
+  ;; you can easily see the difference tree-sitter-hl-mode makes for python, ts or tsx
+  ;; by switching on and off
+  ;; (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
+(use-package tree-sitter-langs
+  :ensure t
+  :after tree-sitter)
+#+end_src
 * Languages
 ** Env files
 #+begin_src emacs-lisp
@@ -824,6 +839,7 @@ separate buffer."
 ** typescript
 #+begin_src emacs-lisp
 (use-package typescript-mode
+  :after tree-sitter
   :ensure t)
 #+end_src
 
