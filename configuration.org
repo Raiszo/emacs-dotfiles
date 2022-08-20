@@ -597,6 +597,8 @@ For better history in helm
                    "[/\\\\]\\venv$"
                    "[/\\\\]\\.mypy_cache$"
                    "[/\\\\]__pycache__$"
+                   ;; tsserver log folder
+                   "[/\\\\]\\.log$"
                    ))
       (push dir lsp-file-watch-ignored-directories))
     :hook ((typescript-mode
