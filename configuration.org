@@ -683,6 +683,18 @@ For better history in helm
   :ensure t
   :after tree-sitter)
 #+end_src
+*** COMMENT indentation
+maybe if this could play nicely with editorconfig I would try it
+#+begin_src emacs-lisp
+(use-package tsi
+  :load-path "~/.emacs.d/tsi.el"
+  :after (tree-sitter)
+  :commands (tsi-typescript-mode)
+  :init
+  (add-hook 'typescript-mode-hook (lambda () (tsi-typescript-mode 1))))
+
+  ;; (add-hook 'json-mode-hook (lambda () (tsi-json-mode 1))))
+#+end_src
 * Languages
 ** Env files
 #+begin_src emacs-lisp
