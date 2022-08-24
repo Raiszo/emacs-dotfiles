@@ -29,18 +29,14 @@ Small trick that was needed long ago for repositories on wsl to work correctly
 Correctly load $PATH and $MANPATH on OSX (GUI)., ty Darwin OS >:T
 
 #+begin_src emacs-lisp
-;; macos only stuff >:v, pice of crap
 (use-package exec-path-from-shell
   :ensure t
   :if (memq window-system '(mac ns))
   :config
   (progn
     (setq exec-path-from-shell-arguments '("-l"))
-    (setq mac-right-option-modifier 'none) ;this is another shit for mac
+    (setq mac-right-option-modifier 'none)
     (exec-path-from-shell-copy-env "LSP_USE_PLISTS")
-    ;; (setq exec-path
-    ;; 	  (append exec-path
-    ;; 		  (list (concat user-home-directory ".nvm/versions/node/12.22.1/bin"))))
     (exec-path-from-shell-initialize)))
 #+end_src
 
@@ -305,7 +301,6 @@ emacs native stuff
 (electric-indent-mode 1)
 (show-paren-mode)
 (electric-pair-mode)
-(ido-mode t)
 (global-hl-line-mode +1)
 
 #+end_src
