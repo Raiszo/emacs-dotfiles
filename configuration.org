@@ -25,13 +25,20 @@ Small trick that was needed long ago for repositories on wsl to work correctly
 #+end_src
 
 * Platform specific
-** OS
-Correctly load $PATH and $MANPATH on OSX (GUI)., ty Darwin OS >:T
-
+** OS conditional
+Only darwin and gnu/linux are supported
+#+begin_src emacs-lisp
+;; Check if system is Darwin/macOS
+(defun raiszo/my-system-type-is-darwin ()
+  "Return true if system is darwin-based (Mac OS X)"
+  (eq system-type 'darwin))
+#+end_src
+** darwin path $PATH loading
+Correctly load $PATH and $MANPATH on OSX (GUI)
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
   :ensure t
-  :if (memq window-system '(mac ns))
+  :if (raiszo/my-system-type-is-darwin)
   :config
   (progn
     (setq exec-path-from-shell-arguments '("-l"))
@@ -39,7 +46,6 @@ Correctly load $PATH and $MANPATH on OSX (GUI)., ty Darwin OS >:T
     (exec-path-from-shell-copy-env "LSP_USE_PLISTS")
     (exec-path-from-shell-initialize)))
 #+end_src
-
 * Appereance
 ** Transparent background
 #+begin_src emacs-lisp
@@ -111,7 +117,7 @@ Specifying a ~:height~ relative to the default fixes it.
 #+begin_src emacs-lisp
   (use-package ligature
     :load-path "~/.emacs.d/ligature.el"
-    :if (eq system-type 'gnu/linux)
+    :if (not (raiszo/my-system-type-is-darwin))
     :config
     ;; Enable the www ligature in every possible major mode
     (ligature-set-ligatures 't '("www"))
@@ -132,7 +138,7 @@ Specifying a ~:height~ relative to the default fixes it.
 #+end_src
 ** Font config
 #+begin_src emacs-lisp
-(when (eq system-type 'darwin)
+(when (raiszo/my-system-type-is-darwin)
   (when (window-system)
     (set-frame-font "Fira Code"))
   (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
@@ -1084,16 +1090,9 @@ gnutls-trustfiles to not get weird errors when using e.g. restclient
 #+begin_src emacs-lisp
   (require 'gnutls)
 
-  ;; Check if system is Darwin/macOS
-  (defun raiszo/my-system-type-is-darwin ()
-    "Return true if system is darwin-based (Mac OS X)"
-    (string-equal system-type "darwin")
-    )
-
   ;; tip from https://blog.vifortech.com/posts/emacs-tls-fix/
   (when (raiszo/my-system-type-is-darwin)
-    (add-to-list 'gnutls-trustfiles "/Users/raiszo/Library/Application Support/mkcert/rootCA.pem")
-    )
+    (add-to-list 'gnutls-trustfiles "/Users/raiszo/Library/Application Support/mkcert/rootCA.pem"))
 
   (setq gnutls-verify-error t)
 
