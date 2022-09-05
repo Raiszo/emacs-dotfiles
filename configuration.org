@@ -65,16 +65,31 @@ More space in GUI mode :3
 #+end_src
 
 ** Theme
+*** ef themes
 #+begin_src emacs-lisp
 (use-package ef-themes
   :ensure t
   :init
-  (load-theme 'ef-summer t))
-
+  (load-theme 'ef-summer t)
+  :config
+  (setq ef-themes-headings
+	 '((0 . (variable-pitch light 1.9))
+          (1 . (variable-pitch light 1.8))
+          (2 . (variable-pitch light 1.7))
+          (3 . (variable-pitch semilight 1.6))
+          (4 . (variable-pitch semilight 1.5))
+          (5 . (variable-pitch regular 1.4))
+          (6 . (variable-pitch regular 1.3))
+          (7 . (variable-pitch 1.2))
+          (t . (variable-pitch 1.1)))))
+#+end_src
+*** COMMENT doom themes
+#+begin_src emacs-lisp
 (use-package doom-themes
   :ensure t
   :init
-  (load-theme 'doom-solarized-light t)
+  ;; (load-theme 'doom-solarized-light t)
+  ;; (load-theme 'doom-dracula t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   :config
@@ -82,7 +97,6 @@ More space in GUI mode :3
     ;; (doom-themes-treemacs-config)
     (doom-themes-org-config)))
 #+end_src
-
 ** Font
 Having mixed fonts in a single buffer causes the function ~text-scale-adjust~ to behave strangely, only adjusting the default face
 According to [[https://protesilaos.com/codelog/2020-09-05-emacs-note-mixed-font-heights/][this post]] by Protesilaos, we should not specify a specific size for each face (:inherit I'm looking at you).
