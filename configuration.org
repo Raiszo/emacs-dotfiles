@@ -108,9 +108,15 @@ Having mixed fonts in a single buffer causes the function ~text-scale-adjust~ to
 According to [[https://protesilaos.com/codelog/2020-09-05-emacs-note-mixed-font-heights/][this post]] by Protesilaos, we should not specify a specific size for each face (:inherit I'm looking at you).
 Specifying a ~:height~ relative to the default fixes it.
 #+begin_src emacs-lisp
-  (set-face-attribute 'default nil :family "Fira Code" :height 110)
-  ;; (custom-set-faces
-  ;;  '(font-lock-function-name-face ((t (:inherit default :slant italic :font "Fira Code iScript" :height 1.0)))))
+(if (raiszo/my-system-type-is-darwin)
+    (progn
+      (set-face-attribute 'default nil :family "Fira Code" :height 135)
+      ;; (custom-set-faces
+      ;;  '(font-lock-function-name-face ((t (:inherit default :slant italic :font "Fira Code iScript" :height 1.0)))))
+      )
+  (progn
+    (set-face-attribute 'default nil :family "Cascadia Code" :height 110)))
+
 #+end_src
 
 ** Ligatures settings
