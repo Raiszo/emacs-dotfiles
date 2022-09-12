@@ -76,18 +76,17 @@ More space in GUI mode :3
 (use-package ef-themes
   :ensure t
   :init
-  (load-theme 'ef-summer t)
-  :config
   (setq ef-themes-headings
-	 '((0 . (variable-pitch light 1.9))
-          (1 . (variable-pitch light 1.8))
-          (2 . (variable-pitch light 1.7))
-          (3 . (variable-pitch semilight 1.6))
-          (4 . (variable-pitch semilight 1.5))
-          (5 . (variable-pitch regular 1.4))
-          (6 . (variable-pitch regular 1.3))
-          (7 . (variable-pitch 1.2))
-          (t . (variable-pitch 1.1)))))
+	'((0 . (variable-pitch light 1.9))
+	  (1 . (variable-pitch light 1.8))
+	  (2 . (variable-pitch light 1.7))
+	  (3 . (variable-pitch semilight 1.6))
+	  (4 . (variable-pitch semilight 1.5))
+	  (5 . (variable-pitch regular 1.4))
+	  (6 . (variable-pitch regular 1.3))
+	  (7 . (variable-pitch 1.2))
+	  (t . (variable-pitch 1.1))))
+  (load-theme 'ef-summer t))
 #+end_src
 *** COMMENT doom themes
 #+begin_src emacs-lisp
@@ -620,11 +619,12 @@ For better history in helm
     (setq read-process-output-max (* 1024 1048 4)) ;; 4mb
     (dolist (dir '(
                    "[/\\\\]\\.venv$"
-                   "[/\\\\]\\venv$"
                    "[/\\\\]\\.mypy_cache$"
                    "[/\\\\]__pycache__$"
                    ;; tsserver log folder
                    "[/\\\\]\\.log$"
+                   "[/\\\\]\\cdk.out$"
+                   "[/\\\\]\\.tmp"
                    ))
       (push dir lsp-file-watch-ignored-directories))
     :hook ((typescript-mode
@@ -909,6 +909,7 @@ There is also rustic available, but I want to use it when I feel like I need its
 ;; 		      ;; (make-local-variable 'company-backends)))
 ;; 		      (delete 'company-semantic (add-to-list (make-local-variable 'company-backends) 'company-emoji))))
 (use-package org
+  :after ef-themes
   :config
   (setq org-image-actual-width nil)
   (setq org-edit-src-content-indentation 0)
