@@ -181,18 +181,18 @@ Specifying a ~:height~ relative to the default fixes it.
 
 ** Line number
 #+begin_src emacs-lisp
-  (use-package display-line-numbers
-    :ensure nil
-    :config
-    (set-face-attribute 'line-number-current-line nil
-			:background "#7fffd4"
-			:foreground "black"
-			:weight 'bold)
-    :hook
-    ((prog-mode yaml-mode systemd-mode) . display-line-numbers-mode))
+(use-package display-line-numbers
+  :ensure nil
+  :config
+  (set-face-attribute 'line-number-current-line nil
+		      :background "#7fffd4"
+		      :foreground "black"
+		      :weight 'bold)
+  :hook
+  ((prog-mode yaml-mode systemd-mode) . display-line-numbers-mode))
 #+end_src
 
-** Indentation guides
+** COMMENT Indentation guides
 #+begin_src emacs-lisp
 (use-package highlight-indent-guides
   :ensure t
@@ -285,11 +285,11 @@ Kul dashboard with a custom image: eva <3
   (dashboard-setup-startup-hook))
 #+end_src
 
-** rainbow-delimiters
+** COMMENT rainbow-delimiters
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :ensure t
-  :hook ((python-mode . rainbow-delimiters-mode)
+  :hook ((python-ts-mode . rainbow-delimiters-mode)
 	 (emacs-lisp-mode . rainbow-delimiters-mode)))
 #+end_src
 
@@ -300,7 +300,7 @@ Kul dashboard with a custom image: eva <3
   ;;   :hook (emacs-lisp-mode . rainbow-mode))
 #+end_src
 
-** dimmer
+** COMMENT dimmer
 #+begin_src emacs-lisp
   (use-package dimmer
     :ensure t
@@ -322,18 +322,15 @@ Kul dashboard with a custom image: eva <3
 
 * General stuff
 emacs native stuff
-
 #+begin_src emacs-lisp
-(electric-indent-mode 1)
 (show-paren-mode)
 (electric-pair-mode)
 (global-hl-line-mode +1)
-
 #+end_src
 
 #+begin_src emacs-lisp
-  (use-package ibuffer
-    :bind (("C-x C-b" . ibuffer)))
+(use-package ibuffer
+  :bind (("C-x C-b" . ibuffer)))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -348,7 +345,6 @@ emacs native stuff
 #+end_src
 
 * Code navigation
-
 ** Ace jump
 #+begin_src emacs-lisp
   (use-package avy
@@ -390,7 +386,7 @@ emacs native stuff
 #+end_src
 
 * Programming utilities
-** Snippets
+** COMMENT Snippets
 #+begin_src emacs-lisp
   (use-package yasnippet
     :ensure t
@@ -422,7 +418,8 @@ Open a file under git vc in the browser
   :bind ("C-c g g" . browse-at-remote))
 #+end_src
 
-** search
+** COMMENT search
+after upgrading to the lates emacs29 (march 22) this seems to be broken, it justs prints a message [target window is deleted]
 #+begin_src emacs-lisp
 (use-package phi-search
   :ensure t
@@ -483,7 +480,7 @@ For better history in helm
   (amx-mode 1))
 #+end_src
 
-** treemacs
+** COMMENT treemacs
 #+begin_src emacs-lisp
 (use-package treemacs
   :ensure t
@@ -528,17 +525,6 @@ For better history in helm
 (use-package multi-vterm
   :after vterm
   :ensure t)
-#+end_src
-
-** COMMENT term
-#+begin_src emacs-lisp
-(use-package multi-term
-  :ensure t
-  :config
-  ;; want to use Ace-window here, so delete it from the alist
-  (cl-delete "M-o" term-bind-key-alist :test 'equal :key 'car)
-  ;; No need to add-to-list, just to be clear with the new functionality :D
-  (add-to-list 'term-bind-key-alist '("M-o" . ace-window)))
 #+end_src
 
 ** Editorconfig
@@ -666,7 +652,8 @@ For better history in helm
   (use-package company
     :ensure t
     :defer t
-    :init (global-company-mode)
+    ;; :init (global-company-mode)
+    :diminish company-mode
     :config
     (progn
       (setq company-tooltip-align-annotations t
@@ -676,8 +663,7 @@ For better history in helm
     :custom
     (company-idle-delay 0)
     (company-echo-delay 0)
-    (company-minimum-prefix-length 1)
-    :diminish company-mode)
+    (company-minimum-prefix-length 2))
   (use-package company-quickhelp          ; Documentation popups for Company
     :ensure t
     :defer t
@@ -690,39 +676,30 @@ For better history in helm
     :ensure t
     :hook (company-mode . company-posframe-mode))
 #+end_src
-** Tree sitter
+* Tree sitter
+Built in tree sitter is prefered
 #+begin_src emacs-lisp
-(use-package tree-sitter
-  :ensure t
+(use-package treesit
+  :when (and (fboundp 'treesit-available-p)
+             (treesit-available-p))
   :config
-  ;; activate tree-sitter on any buffer containing code for which it has a parser available
-  (global-tree-sitter-mode))
-  ;; you can easily see the difference tree-sitter-hl-mode makes for python, ts or tsx
-  ;; by switching on and off
-  ;; (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+  (setq treesit-extra-load-path '("~/.emacs.d/tree-sitter-grammars"))
+  :custom (major-mode-remap-alist
+           '((javascript-mode . js-ts-mode)
+             (js-json-mode    . json-ts-mode)
+             (python-mode     . python-ts-mode))))
+             ;; (sh-mode         . bash-ts-mode)
 
-(use-package tree-sitter-langs
-  :ensure t
-  :after tree-sitter)
-#+end_src
-*** COMMENT indentation
-maybe if this could play nicely with editorconfig I would try it
-#+begin_src emacs-lisp
-(use-package tsi
-  :load-path "~/.emacs.d/tsi.el"
-  :after (tree-sitter)
-  :commands (tsi-typescript-mode)
-  :init
-  (add-hook 'typescript-mode-hook (lambda () (tsi-typescript-mode 1))))
-
-  ;; (add-hook 'json-mode-hook (lambda () (tsi-json-mode 1))))
+;; (use-package tree-sitter-langs
+;;   :ensure t
+;;   :after tree-sitter)
 #+end_src
 * Languages
 ** Env files
 #+begin_src emacs-lisp
-  (use-package dotenv-mode
-    :mode ("\\.env\\'")
-    :ensure t)
+(use-package dotenv-mode
+  :mode ("\\.env\\'")
+  :ensure t)
 #+end_src
 ** git files
 #+begin_src emacs-lisp
@@ -731,74 +708,65 @@ maybe if this could play nicely with editorconfig I would try it
 #+end_src
 ** Javascript
 #+begin_src emacs-lisp
-(use-package js2-mode
-  :ensure t
-  :mode "\\.js\\'"
-  :hook (js2-mode . js2-imenu-extras-mode)
-  :custom
-  (js2-strict-missing-semi-warning nil)
-  (js2-include-node-externs t)
-  (js-switch-indent-offset 4)
-  :config
-  (setq-default js2-basic-offset 4))
+;; (use-package js2-mode
+;;   :ensure t
+;;   :mode "\\.js\\'"
+;;   :hook (js2-mode . js2-imenu-extras-mode)
+;;   :custom
+;;   (js2-strict-missing-semi-warning nil)
+;;   (js2-include-node-externs t)
+;;   (js-switch-indent-offset 4)
+;;   :config
+;;   (setq-default js2-basic-offset 4))
+
+;; (use-package js
+;;   :custom
+;;   (js-switch-indent-offset  4))
 
 (use-package nodejs-repl
   :ensure t)
+
+;; (use-package js-doc
+;;   :ensure t
+;;   :bind ("C-c c i" . js-doc-insert-function-doc))
 #+end_src
+
+** typescript
+#+begin_src emacs-lisp
+(use-package typescript-ts-mode
+  :mode "\\.ts\\'"
+  :custom
+  (typescript-ts-mode-indent-offset 4))
+
 
 ** Python
 #+begin_src emacs-lisp
-;; (use-package lsp-python-ms
-;;   :ensure t
-;;   :init
-;;   (setq lsp-python-ms-auto-install-server t)
-;;   ;; (setq lsp-python-ms-python-executable "/usr/local/opt/python@3.8/bin/python3")
-;;   :hook (python-mode . (lambda ()
-;;   			 (require 'lsp-python-ms)
-;;   			 (lsp))))
-
-
 (use-package lsp-pyright
   :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp)))  ; or lsp-deferred
+  :hook (python-ts-mode . (lambda ()
+                            (require 'lsp-pyright)
+                            (lsp)))  ; or lsp-deferred
   :init
   (when (executable-find "python3")
     (setq lsp-pyright-python-executable-cmd "python3"))
   (setq lsp-pyright-multi-root nil))
 #+end_src
 
-** yaml
-#+begin_src emacs-lisp
-(use-package yaml-mode
-  :ensure t
-  :mode ("\\.yaml\\'" "\\.yml\\'" "\\.config\\'")
-  :config
-  (setq yaml-indent-offset 4)
-  :custom-face
-  (font-lock-variable-name-face ((t (:foreground "violet")))))
-#+end_src
-
 ** json
 #+begin_src emacs-lisp
-  (use-package json-mode
-    :ensure t
-    :config
-    (add-hook 'json-mode-hook
-              (lambda ()
-                (setq indent-tabs-mode nil))))
-#+end_src
+;; (use-package json-mode
+;;   :ensure t
+;;   :config
+;;   (add-hook 'json-mode-hook
+;;             (lambda ()
+;;               (setq indent-tabs-mode nil))))
 
-** markdown
-#+begin_src emacs-lisp
-(use-package markdown-mode
-  :ensure t
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+(use-package json-ts-mode
+  :config
+  (setq json-ts-mode-indent-offset 4)
+  (add-hook 'json-ts-mode-hook
+            (lambda ()
+              (setq indent-tabs-mode nil))))
 #+end_src
 
 ** restclient
@@ -810,6 +778,12 @@ maybe if this could play nicely with editorconfig I would try it
   :ensure t
   :after edit-indirect
   :config
+  ;; (add-to-list 'restclient-content-type-modes '("application/json" . json-ts-mode))
+  ;; for some reason restclient can't use json-mode-pretty-buffer on json-ts-mode
+
+  ;; hardcoded to json-ts-mode, before adopting native tree-sitter integration
+  ;; normal-mode would get the correct mode, weird
+  (setq edit-indirect-guess-mode-function (lambda (_parent-buffer _beg _end) (json-ts-mode)))
   (defun my-restclient-indirect-edit ()
     "Use `edit-indirect-region' to edit the request body in a
 separate buffer."
@@ -827,7 +801,37 @@ separate buffer."
 	(edit-indirect-region (min (point) (restclient-current-max)) (restclient-current-max) t))))
   :bind ("C-c '" . my-restclient-indirect-edit)
   :mode (("\\.http$" . restclient-mode)))
+#+end_src
 
+** yaml
+#+begin_src emacs-lisp
+(use-package yaml-mode
+  :ensure t
+  :mode ("\\.yaml\\'" "\\.yml\\'" "\\.config\\'")
+  :config
+  (setq yaml-indent-offset 4)
+  :custom-face
+  (font-lock-variable-name-face ((t (:foreground "violet")))))
+#+end_src
+
+** node
+#+begin_src emacs-lisp
+(use-package nvm
+  :ensure t
+  :config
+  ;;(nvm-use "v12.22.1"))
+  ;; (nvm-use "v14.18.1"))
+  (nvm-use "v16.14.0"))
+#+end_src
+** markdown
+#+begin_src emacs-lisp
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 #+end_src
 
 ** elasticsearch
@@ -857,7 +861,7 @@ separate buffer."
   :ensure t)
 #+end_src
 
-** go
+** COMMENT go
 #+begin_src emacs-lisp
 (use-package go-mode
   :ensure t
@@ -871,25 +875,20 @@ separate buffer."
     :config (setq go-tag-args (list "-transform"))))
 #+end_src
 
-** elixir
+** COMMENT elixir
 #+begin_src emacs-lisp
 (use-package elixir-mode
   :ensure t)
 #+end_src
 
-** typescript
+** COMMENT PlantUML
 #+begin_src emacs-lisp
-(use-package typescript-mode
-  :after tree-sitter
-  :ensure t)
-#+end_src
-
-** node
-#+begin_src emacs-lisp
-(use-package nvm
+(use-package plantuml-mode
   :ensure t
-  :config
-  (nvm-use "v12.22.1"))
+  :custom
+  (plantuml-indent-level 4)
+  :hook
+  (plantuml-mode . (lambda () (indent-tabs-mode nil))))
 #+end_src
 ** Rust
 There is also rustic available, but I want to use it when I feel like I need its extra features
@@ -1020,7 +1019,7 @@ If apa6 is needed take a look at [[https://jonathanabennett.github.io/blog/2019/
   :ensure t)
 #+end_src
 
-** Emojis :3
+** COMMENT Emojis :3
 #+begin_src emacs-lisp
   (use-package emojify
     :ensure t
