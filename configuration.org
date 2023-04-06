@@ -416,12 +416,33 @@ emacs native stuff
     (yas-load-directory "~/.emacs.d/snippets")
     (yas-reload-all))
 #+end_src
-
-** expand-region
+** COMMENT expand-region
 #+begin_src emacs-lisp
+(defun raiszo/tree-sitter-mark-bigger-node ()
+  (interactive)
+  (let* ((root (tsc-root-node tree-sitter-tree))
+         (node (tsc-get-descendant-for-position-range root (region-beginning) (region-end)))
+         (node-start (tsc-node-start-position node))
+         (node-end (tsc-node-end-position node)))
+    ;; Node fits the region exactly. Try its parent node instead.
+    (when (and (= (region-beginning) node-start) (= (region-end) node-end))
+      (when-let ((node (tsc-get-parent node)))
+        (setq node-start (tsc-node-start-position node)
+              node-end (tsc-node-end-position node))))
+    (set-mark node-end)
+    (goto-char node-start)))
+
+(defun raiszo/add-tree-sitter-mode-expansions ()
+  (set (make-local-variable 'er/try-expand-list) (append
+                                                  er/try-expand-list
+                                                  '(raiszo/tree-sitter-mark-bigger-node))))
+
 (use-package expand-region
   :ensure t
-  :bind ("C-=" . 'er/expand-region))
+  :bind ("C-=" . 'er/expand-region)
+  :config
+  (er/enable-mode-expansions 'typescript-ts-mode 'raiszo/add-tree-sitter-mode-expansions)
+  (er/enable-mode-expansions 'js-ts-mode 'raiszo/add-tree-sitter-mode-expansions))
 #+end_src
 
 ** git
