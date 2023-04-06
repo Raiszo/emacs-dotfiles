@@ -331,6 +331,16 @@ Kul dashboard with a custom image: eva <3
     (dimmer-mode t))
 #+end_src
 
+** Ansi support in emacs special buffers
+*** compilation
+as suggested by https://github.com/emacs-typescript/typescript.el#support-for-compilation-mode
+#+begin_src emacs-lisp
+;;;; colorize output in compile buffer
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (ansi-color-apply-on-region compilation-filter-start (point-max)))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+#+end_src
 * General stuff
 emacs native stuff
 #+begin_src emacs-lisp
