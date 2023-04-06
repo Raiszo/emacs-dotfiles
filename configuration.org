@@ -87,6 +87,17 @@ More space in GUI mode :3
 	  (7 . (variable-pitch 1.2))
 	  (t . (variable-pitch 1.1))))
   (load-theme 'ef-summer t))
+  (if (raiszo/my-system-type-is-darwin)
+      (progn
+        (defun my/apply-theme (appearance)
+          "Load theme, taking current system APPEARANCE into consideration."
+          (mapc #'disable-theme custom-enabled-themes)
+          (pcase appearance
+            ('light (load-theme 'ef-summer t))
+            ('dark (load-theme 'ef-day t))))
+
+        (add-hook 'ns-system-appearance-change-functions #'my/apply-theme))
+    (load-theme 'ef-autumn t)))
 #+end_src
 *** COMMENT doom themes
 #+begin_src emacs-lisp
