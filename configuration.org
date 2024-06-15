@@ -46,6 +46,18 @@ Correctly load $PATH and $MANPATH on OSX (GUI)
     (exec-path-from-shell-copy-env "LSP_USE_PLISTS")
     (exec-path-from-shell-initialize)))
 #+end_src
+** Disable s-t kbd on macos
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-t") nil)
+#+end_src
+* vanilla config
+** backups
+#+begin_src emacs-lisp
+
+;; (setq backup-directory-alist `(("." . "~/backups/emacs-saves")))
+(setq backup-by-copying t)
+
+#+end_src
 * Appereance
 ** Transparent background
 #+begin_src emacs-lisp
