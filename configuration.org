@@ -734,8 +734,6 @@ Built in tree sitter is prefered
 (use-package treesit
   :when (and (fboundp 'treesit-available-p)
              (treesit-available-p))
-  :config
-  (setq treesit-extra-load-path '("~/.emacs.d/tree-sitter-grammars"))
   :custom (major-mode-remap-alist
            '((javascript-mode . js-ts-mode)
              (js-json-mode    . json-ts-mode)
