@@ -730,6 +730,10 @@ For better history in helm
     :ensure t
     :hook (company-mode . company-posframe-mode))
 #+end_src
+** compilation
+#+begin_src emacs-lisp
+(setq compile-command "npm run build")
+#+end_src
 * Tree sitter
 Built in tree sitter is prefered
 #+begin_src emacs-lisp
