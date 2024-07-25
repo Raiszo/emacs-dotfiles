@@ -646,8 +646,8 @@ For better history in helm
     :commands lsp
     :custom
     (lsp-idle-delay 0.500)
-    (lsp-rust-server 'rust-analyzer)
-    (lsp-rust-analyzer-server-display-inlay-hints t)
+    ;; (lsp-rust-server 'rust-analyzer)
+    ;; (lsp-rust-analyzer-server-display-inlay-hints t)
     :config
     (setq lsp-enable-indentation nil)
     (setq lsp-enable-snippet t)
