@@ -215,7 +215,7 @@ Specifying a ~:height~ relative to the default fixes it.
   ((prog-mode yaml-mode systemd-mode) . display-line-numbers-mode))
 #+end_src
 
-** COMMENT Indentation guides
+** Indentation guides
 #+begin_src emacs-lisp
 (use-package highlight-indent-guides
   :ensure t
@@ -419,7 +419,7 @@ emacs native stuff
 #+end_src
 
 * Programming utilities
-** COMMENT Snippets
+** Snippets
 #+begin_src emacs-lisp
   (use-package yasnippet
     :ensure t
@@ -428,7 +428,7 @@ emacs native stuff
     (yas-load-directory "~/.emacs.d/snippets")
     (yas-reload-all))
 #+end_src
-** COMMENT expand-region
+** expand-region
 #+begin_src emacs-lisp
 (defun raiszo/tree-sitter-mark-bigger-node ()
   (interactive)
@@ -520,7 +520,7 @@ after upgrading to the lates emacs29 (march 22) this seems to be broken, it just
 ;;   (helm-posframe-enable))
 #+end_src
 
-** COMMENT amx
+** amx
 For better history in helm
 #+begin_src emacs-lisp
 (use-package amx
