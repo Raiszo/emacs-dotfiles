@@ -798,6 +798,15 @@ Built in tree sitter is prefered
 ;;   :bind ("C-c c i" . js-doc-insert-function-doc))
 #+end_src
 
+** more typecript
+#+begin_src emacs-lisp
+(use-package typescript-ts-mode
+  :mode ("\\.ts\\'" "\\.tsx\\'")
+  :custom
+  (typescript-ts-mode-indent-offset 4)
+  :config
+  (advice-add 'typescript-ts-mode--indent-rules :override #'my-typescript-ts-mode--indent-rules))
+#+end_src
 ** typescript
 #+begin_src emacs-lisp
 (defun my-typescript-ts-mode--indent-rules (language)
@@ -867,15 +876,6 @@ Argument LANGUAGE is either `typescript' or `tsx'."
            ((parent-is "jsx_self_closing_element") parent typescript-ts-mode-indent-offset)))
      ;; FIXME(Theo): This no-node catch-all should be removed.  When is it needed?
      (no-node parent-bol 0))))
-
-(use-package typescript-ts-mode
-  :mode "\\.ts\\'"
-  :custom
-  (typescript-ts-mode-indent-offset 4)
-  :config
-  (advice-add 'typescript-ts-mode--indent-rules :override #'my-typescript-ts-mode--indent-rules))
-
-
 
 #+end_src
 
