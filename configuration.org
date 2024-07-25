@@ -895,8 +895,10 @@ Argument LANGUAGE is either `typescript' or `tsx'."
                             (lsp)))  ; or lsp-deferred
   :init
   (when (executable-find "python3")
-    (setq lsp-pyright-python-executable-cmd "python3"))
-  (setq lsp-pyright-multi-root nil))
+    (setq lsp-pyright-python-executable-cmd "python3.12"))
+  (setq lsp-pyright-multi-root nil)
+  (setq lsp-pyright-disable-organize-imports nil))
+
 #+end_src
 
 ** web
