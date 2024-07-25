@@ -697,6 +697,13 @@ For better history in helm
     (setq lsp-ui-sideline-ignore-duplicate t)
     (setq lsp-ui-sideline-enable nil))
 
+  ;; (use-package lsp-treemacs
+  ;;   :ensure t
+  ;;   :defer t
+  ;;   :commands lsp-treemacs-errors-list
+  ;;   :init
+  ;;   (lsp-treemacs-sync-mode 1))
+
   (use-package company
     :ensure t
     :defer t
@@ -892,6 +899,21 @@ Argument LANGUAGE is either `typescript' or `tsx'."
   (setq lsp-pyright-multi-root nil))
 #+end_src
 
+** web
+#+begin_src emacs-lisp
+(use-package web-mode
+  :ensure t
+  :mode ("\\.svelte\\'" "\\.vue\\'")
+  :custom
+  (web-mode-markup-indent-offset 2))
+#+end_src
+
+** astro
+#+begin_src emacs-lisp
+(use-package astro-ts-mode
+  :ensure t
+  :mode ("\\.astro\\'"))
+#+end_src
 ** json
 #+begin_src emacs-lisp
 ;; (use-package json-mode
