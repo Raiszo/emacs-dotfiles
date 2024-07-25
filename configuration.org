@@ -1080,11 +1080,23 @@ There is also rustic available, but I want to use it when I feel like I need its
   (setq org-image-actual-width nil)
   (setq org-edit-src-content-indentation 0)
   (setq org-src-preserve-indentation t)
+  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+  ;; (set-face-attribute 'org-table nil :inherit '(shadow fixed-pitch))
+  (setq org-startup-indented t)
+  (setq org-latex-prefer-user-labels t)
   (setq org-latex-pdf-process
 	'("%latex -interaction nonstopmode -output-directory %o %f"
 	  "%bibtex %b"
 	  "%latex -interaction nonstopmode -output-directory %o %f"
-	  "%latex -interaction nonstopmode -output-directory %o %f")))
+	  "%latex -interaction nonstopmode -output-directory %o %f"))
+  (defun org-latex-math-block (_math-block contents _info)
+    "Transcode a MATH-BLOCK object from Org to LaTeX.
+CONTENTS is a string.  INFO is a plist used as a communication
+channel."
+    (when (org-string-nw-p contents)
+      (format "$%s$" (org-trim contents))))
+  :custom-face
+  (org-table ((t (:inherit (shadow fixed-pitch))))))
 #+end_src
 
 #+begin_src emacs-lisp
