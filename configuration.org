@@ -1099,12 +1099,19 @@ channel."
   (org-table ((t (:inherit (shadow fixed-pitch))))))
 #+end_src
 
+** org babel packages
+#+begin_src emacs-lisp
+(use-package ob-restclient
+  :ensure t)
+#+end_src
+** org babel config
 #+begin_src emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((lisp . t)
    (C . t)
    (emacs-lisp . t)
+   (restclient . t)
    (latex . t)))
 (setq org-confirm-babel-evaluate nil)
 (setq org-src-window-setup 'other-window)
