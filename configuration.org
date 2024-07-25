@@ -657,11 +657,11 @@ For better history in helm
     (setq read-process-output-max (* 1024 1048 4)) ;; 4mb
     (dolist (dir '(
                    "[/\\\\]\\.venv$"
+                   "[/\\\\]cdk.out$"
                    "[/\\\\]\\.mypy_cache$"
                    "[/\\\\]__pycache__$"
                    ;; tsserver log folder
                    "[/\\\\]\\.log$"
-                   "[/\\\\]\\cdk.out$"
                    "[/\\\\]\\.tmp"
                    ))
       (push dir lsp-file-watch-ignored-directories))
