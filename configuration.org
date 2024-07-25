@@ -665,11 +665,8 @@ For better history in helm
                    "[/\\\\]\\.tmp"
                    ))
       (push dir lsp-file-watch-ignored-directories))
-    :hook ((typescript-mode
-            js2-mode
-            dockerfile-mode
+    :hook ((dockerfile-mode
             sh-mode
-            rust-mode
             ) . lsp-deferred))
 
   ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
