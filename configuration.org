@@ -1290,8 +1290,8 @@ gnutls-trustfiles to not get weird errors when using e.g. restclient
   (when (raiszo/my-system-type-is-darwin)
     (add-to-list 'gnutls-trustfiles "/Users/raiszo/Library/Application Support/mkcert/rootCA.pem"))
 
-  (setq gnutls-verify-error t)
+  ;; (setq gnutls-verify-error t)
 
   ;; suggestion from: https://github.com/pashky/restclient.el/issues/212
-  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+  ;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 #+end_src
