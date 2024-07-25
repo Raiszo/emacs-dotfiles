@@ -1030,7 +1030,7 @@ separate buffer."
   :hook
   (plantuml-mode . (lambda () (indent-tabs-mode nil))))
 #+end_src
-** Rust
+** COMMENT Rust
 There is also rustic available, but I want to use it when I feel like I need its extra features
 #+begin_src emacs-lisp
 (use-package rust-mode
