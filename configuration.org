@@ -451,10 +451,7 @@ emacs native stuff
 
 (use-package expand-region
   :ensure t
-  :bind ("C-=" . 'er/expand-region)
-  :config
-  (er/enable-mode-expansions 'typescript-ts-mode 'raiszo/add-tree-sitter-mode-expansions)
-  (er/enable-mode-expansions 'js-ts-mode 'raiszo/add-tree-sitter-mode-expansions))
+  :bind ("C-=" . 'er/expand-region))
 #+end_src
 
 ** git
