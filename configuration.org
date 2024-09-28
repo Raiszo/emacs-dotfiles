@@ -482,10 +482,6 @@ after upgrading to the lates emacs29 (march 22) this seems to be broken, it just
 	      (setq completion-styles
 		    (cond ((assq 'helm-flex completion-styles-alist)
 			   '(helm-flex))))))
-  ;; https://github.com/tonsky/FiraCode/issues/158
-  (add-hook 'helm-major-mode-hook
-	    (lambda ()
-	      (setq auto-composition-mode nil)))
   :bind (("M-x" . helm-M-x)
 	 ("C-x b" . helm-buffers-list)
 	 ("C-x C-f" . helm-find-files))
