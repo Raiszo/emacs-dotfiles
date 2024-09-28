@@ -294,6 +294,7 @@ Kul dashboard with a custom image: eva <3
 			    (projects . 3)))
     (setq dashboard-center-content t)
     (setq dashboard-set-file-icons t)
+    (setq dashboard-projects-backend 'projectile)
     (setq dashboard-set-heading-icons t)
     (setq dashboard-startup-banner "~/.emacs.d/images/wille.png")
     )
