@@ -643,6 +643,7 @@ For better history in helm
     (setq lsp-enable-snippet t)
     (setq lsp-signature-auto-activate nil)
     (setq lsp-enable-on-type-formatting nil)
+    (setq lsp-completion-use-last-result t)
     (setq lsp-clients-typescript-max-ts-server-memory 3072)
     (setq read-process-output-max (* 1024 1024 8)) ;; 1mb
     (setq lsp-file-watch-threshold 2000)
