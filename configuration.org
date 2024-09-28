@@ -15,13 +15,6 @@ Small trick that was needed long ago for repositories on wsl to work correctly
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("melpa-stable" . "http://stable.melpa.org/packages/")
 			 ("melpa" . "http://melpa.org/packages/")))
-
-(setq package-list '(use-package))
-
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-refresh-contents)
-    (package-install package)))
 #+end_src
 
 * Platform specific
