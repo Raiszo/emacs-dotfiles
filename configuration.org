@@ -805,6 +805,8 @@ Built in tree sitter is prefered
   (typescript-ts-mode-indent-offset 4)
   :config
   (advice-add 'typescript-ts-mode--indent-rules :override #'my-typescript-ts-mode--indent-rules))
+(use-package prettier
+  :ensure t)
 #+end_src
 ** typescript
 #+begin_src emacs-lisp
