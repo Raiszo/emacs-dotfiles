@@ -379,6 +379,18 @@ emacs native stuff
     :bind (("C-'" . 'avy-goto-char-2)))
 #+end_src
 
+** ace window
+The solution to not have problems when using package from html modes is here https://emacs.stackexchange.com/questions/75204/stop-later-modes-from-clobbering-a-global-keybinding
+
+#+begin_src emacs-lisp
+(use-package ace-window
+  :demand t
+  :ensure t
+  :init
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  ;; (setq aw-dispatch-always t)
+  :bind* ("M-o" . ace-window))
+#+end_src
 ** Other stuff
 #+begin_src emacs-lisp
 (use-package undo-tree
@@ -394,10 +406,6 @@ emacs native stuff
 	 ("C->" . 'mc/mark-next-like-this)
 	 ("C-<" . mc/mark-previous-like-this)
 	 ("C-c C-q" . mc/mark-all-like-this)))
-
-(use-package ace-window
-  :ensure t
-  :bind ("M-o" . ace-window))
 
 (use-package zoom-window
   :ensure t
