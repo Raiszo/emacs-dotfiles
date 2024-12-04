@@ -1058,6 +1058,19 @@ There is also rustic available, but I want to use it when I feel like I need its
   (add-hook 'rust-mode-hook
             (lambda () (setq indent-tabs-mode nil))))
 #+end_src
+** swift
+#+begin_src emacs-lisp
+(use-package swift-ts-mode
+  :ensure t
+  :hook (swift-ts-mode . (lambda () (setq tab-width 4)))
+  :config
+  (add-to-list 'lsp-language-id-configuration '(swift-ts-mode . "swift")))
+(use-package lsp-sourcekit
+  :ensure t
+  :after lsp-mode
+  :config
+  (setq lsp-sourcekit-executable "~/.local/share/swiftly/toolchains/6.0.1/usr/bin/sourcekit-lsp"))
+#+end_src
 * Org-mode
 ** General config
 #+begin_src emacs-lisp
