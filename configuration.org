@@ -747,9 +747,12 @@ Built in tree sitter is prefered
              ;; (sh-mode         . bash-ts-mode)
 
 (setq treesit-language-source-alist
-   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+   '((astro "https://github.com/virchau13/tree-sitter-astro")
+     (bash "https://github.com/tree-sitter/tree-sitter-bash")
+     (c "https://github.com/tree-sitter/tree-sitter-c")
      ;; (cmake "https://github.com/uyha/tree-sitter-cmake")
-     ;; (css "https://github.com/tree-sitter/tree-sitter-css")
+     (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+     (css "https://github.com/tree-sitter/tree-sitter-css")
      (elisp "https://github.com/Wilfred/tree-sitter-elisp")
      (go "https://github.com/tree-sitter/tree-sitter-go")
      (html "https://github.com/tree-sitter/tree-sitter-html")
@@ -1064,6 +1067,19 @@ There is also rustic available, but I want to use it when I feel like I need its
   :init
   (add-hook 'rust-mode-hook
             (lambda () (setq indent-tabs-mode nil))))
+#+end_src
+** swift
+#+begin_src emacs-lisp
+(use-package swift-ts-mode
+  :ensure t
+  :hook (swift-ts-mode . (lambda () (setq tab-width 4)))
+  :config
+  (add-to-list 'lsp-language-id-configuration '(swift-ts-mode . "swift")))
+(use-package lsp-sourcekit
+  :ensure t
+  :after lsp-mode
+  :config
+  (setq lsp-sourcekit-executable "~/.local/share/swiftly/toolchains/6.0.1/usr/bin/sourcekit-lsp"))
 #+end_src
 * Org-mode
 ** General config
