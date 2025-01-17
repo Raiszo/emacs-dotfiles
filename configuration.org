@@ -1101,6 +1101,12 @@ channel."
 #+begin_src emacs-lisp
 (use-package ob-restclient
   :ensure t)
+(use-package ob-mongo
+  :ensure t
+  :custom
+  (ob-mongo:default-host "localhost")
+  (ob-mongo:default-port "27017")
+  (ob-mongo:default-mongo-executable "mongosh"))
 #+end_src
 ** org babel config
 #+begin_src emacs-lisp
@@ -1109,6 +1115,7 @@ channel."
  '((lisp . t)
    (C . t)
    (emacs-lisp . t)
+   (mongo . t)
    (restclient . t)
    (latex . t)))
 (setq org-confirm-babel-evaluate nil)
