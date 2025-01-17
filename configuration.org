@@ -882,7 +882,9 @@ This mode supports multiple "languages" when there is no native mode for them.
   :hook (astro-ts-mode . (lambda () (setq tab-width 2)))
   :mode ("\\.astro\\'")
   :init
-  (setq astro-ts-mode-indent-offset 4))
+  (setq astro-ts-mode-indent-offset 2)
+  :config
+  (add-to-list 'lsp-language-id-configuration '(astro-ts-mode . "astro")))
 #+end_src
 
 *** vue
