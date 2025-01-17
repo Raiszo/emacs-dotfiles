@@ -1012,6 +1012,13 @@ separate buffer."
   :ensure t)
 #+end_src
 
+** gleam
+#+begin_src emacs-lisp
+(use-package gleam-ts-mode
+  :ensure t
+  :mode (rx ".gleam" eos))
+#+end_src
+
 ** COMMENT go
 #+begin_src emacs-lisp
 (use-package go-mode
