@@ -863,8 +863,10 @@ Argument LANGUAGE is either `typescript' or `tsx'."
 
 #+end_src
 
-** markup
-*** web
+** markup+
+*** web-mode
+This mode supports multiple "languages" when there is no native mode for them.
+
 #+begin_src emacs-lisp
 (use-package web-mode
   :ensure t
@@ -882,6 +884,14 @@ Argument LANGUAGE is either `typescript' or `tsx'."
   :init
   (setq astro-ts-mode-indent-offset 4))
 #+end_src
+
+*** vue
+When a =.vue= file is opened in a project vue-semantic-server is used for all files, which breaks development for =astro= projects and other ones that would have Vue in them
+
+#+begin_src emacs-lisp
+(setq lsp-volar-take-over-mode nil)
+#+end_src
+
 ** json
 #+begin_src emacs-lisp
 (use-package json-ts-mode
