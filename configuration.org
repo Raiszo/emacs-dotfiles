@@ -886,7 +886,8 @@ Argument LANGUAGE is either `typescript' or `tsx'."
 
 #+end_src
 
-** web
+** markup
+*** web
 #+begin_src emacs-lisp
 (use-package web-mode
   :ensure t
@@ -895,11 +896,14 @@ Argument LANGUAGE is either `typescript' or `tsx'."
   (web-mode-markup-indent-offset 2))
 #+end_src
 
-** astro
+*** astro
 #+begin_src emacs-lisp
 (use-package astro-ts-mode
   :ensure t
-  :mode ("\\.astro\\'"))
+  :hook (astro-ts-mode . (lambda () (setq tab-width 2)))
+  :mode ("\\.astro\\'")
+  :init
+  (setq astro-ts-mode-indent-offset 4))
 #+end_src
 ** json
 #+begin_src emacs-lisp
