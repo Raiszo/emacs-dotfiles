@@ -1198,7 +1198,7 @@ To have project specific roam notes declare a local variable as suggested [[http
 (use-package ox-reveal
   :ensure t)
 #+end_src
-** Scientific writing
+** COMMENT Scientific writing
 To reference from bibtex file:
 #+begin_src emacs-lisp
 (use-package helm-bibtex
