@@ -784,39 +784,17 @@ Built in tree sitter is prefered
 (use-package git-modes
   :ensure t)
 #+end_src
-** Javascript
+** javascript & typescript
 #+begin_src emacs-lisp
-;; (use-package js2-mode
-;;   :ensure t
-;;   :mode "\\.js\\'"
-;;   :hook (js2-mode . js2-imenu-extras-mode)
-;;   :custom
-;;   (js2-strict-missing-semi-warning nil)
-;;   (js2-include-node-externs t)
-;;   (js-switch-indent-offset 4)
-;;   :config
-;;   (setq-default js2-basic-offset 4))
+(use-package js
+  :hook (js-ts-mode . (lambda () (setq tab-width 4)))
+  :mode ("\\.mjs\\'" . js-ts-mode))
 
-;; (use-package js
-;;   :custom
-;;   (js-switch-indent-offset  4))
-
-(use-package nodejs-repl
-  :ensure t)
-
-;; (use-package js-doc
-;;   :ensure t
-;;   :bind ("C-c c i" . js-doc-insert-function-doc))
-#+end_src
-
-** more typecript
-#+begin_src emacs-lisp
 (use-package typescript-ts-mode
-  :mode ("\\.ts\\'" "\\.tsx\\'")
+  :hook (typescript-ts-mode . (lambda () (setq tab-width 4)))
   :custom
-  (typescript-ts-mode-indent-offset 4)
-  :config
-  (advice-add 'typescript-ts-mode--indent-rules :override #'my-typescript-ts-mode--indent-rules))
+  (typescript-ts-mode-indent-offset 4))
+
 (use-package prettier
   :ensure t)
 #+end_src
@@ -990,9 +968,11 @@ separate buffer."
 (use-package nvm
   :ensure t
   :config
-  ;;(nvm-use "v12.22.1"))
-  ;; (nvm-use "v14.18.1"))
-  (nvm-use "v16.14.0"))
+  (nvm-use "v20.16"))
+
+;; repl
+(use-package nodejs-repl
+  :ensure t)
 #+end_src
 ** markdown
 #+begin_src emacs-lisp
