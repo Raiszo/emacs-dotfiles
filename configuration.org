@@ -432,25 +432,6 @@ The solution to not have problems when using package from html modes is here htt
 #+end_src
 ** expand-region
 #+begin_src emacs-lisp
-(defun raiszo/tree-sitter-mark-bigger-node ()
-  (interactive)
-  (let* ((root (tsc-root-node tree-sitter-tree))
-         (node (tsc-get-descendant-for-position-range root (region-beginning) (region-end)))
-         (node-start (tsc-node-start-position node))
-         (node-end (tsc-node-end-position node)))
-    ;; Node fits the region exactly. Try its parent node instead.
-    (when (and (= (region-beginning) node-start) (= (region-end) node-end))
-      (when-let ((node (tsc-get-parent node)))
-        (setq node-start (tsc-node-start-position node)
-              node-end (tsc-node-end-position node))))
-    (set-mark node-end)
-    (goto-char node-start)))
-
-(defun raiszo/add-tree-sitter-mode-expansions ()
-  (set (make-local-variable 'er/try-expand-list) (append
-                                                  er/try-expand-list
-                                                  '(raiszo/tree-sitter-mark-bigger-node))))
-
 (use-package expand-region
   :ensure t
   :bind ("C-=" . 'er/expand-region))
@@ -767,10 +748,6 @@ Built in tree sitter is prefered
      (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.21.1" "tsx/src")
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-
-;; (use-package tree-sitter-langs
-;;   :ensure t
-;;   :after tree-sitter)
 #+end_src
 * Languages
 ** Env files
