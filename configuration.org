@@ -634,6 +634,7 @@ For better history in helm
     (setq lsp-enable-on-type-formatting nil)
     (setq lsp-completion-use-last-result t)
     (setq lsp-clients-typescript-max-ts-server-memory 3072)
+    (setq lsp-clients-typescript-prefer-use-project-ts-server t)
     (setq read-process-output-max (* 1024 1024 8)) ;; 1mb
     (setq lsp-file-watch-threshold 2000)
     (dolist (dir '(
